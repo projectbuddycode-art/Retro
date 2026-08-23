@@ -10,7 +10,7 @@ export const CustomSoftwareSection: React.FC = () => {
   return (
     <section className="py-24 sm:py-32 bg-[#FAFAFC] border-b border-slate-200 relative overflow-hidden">
       <Container>
-        {/* Stage 1: Clean Editorial Introduction */}
+        {/* Stage 1: Clean Editorial Introduction — ALL TEXT OUTSIDE THE VIDEO */}
         <div className="max-w-3xl space-y-4 mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -45,7 +45,7 @@ export const CustomSoftwareSection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Stage 2: Pure Cinematic Visual (8.mp4) without Heavy Telemetry Panels */}
+        {/* Stage 2: Pure Cinematic Video Frame (8.mp4) — ZERO TEXT OR OVERLAYS INSIDE FRAME */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -57,18 +57,12 @@ export const CustomSoftwareSection: React.FC = () => {
             src="/videos/8.mp4"
             priority="near"
             aspectRatio="aspect-[16/9]"
-            className="object-cover opacity-95 max-h-[560px]"
+            objectFit="cover"
+            className="w-full h-full max-h-[560px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/70 via-transparent to-transparent pointer-events-none" />
-
-          {/* Minimal Subtle Label */}
-          <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
-            <span className="text-slate-300 font-medium">CUSTOM SOFTWARE ARCHITECTURE</span>
-            <span className="text-[#38BDF8] font-bold text-[11px] uppercase tracking-wider">100% OWNERSHIP</span>
-          </div>
         </motion.div>
 
-        {/* Stage 3: Connected Architecture System Line */}
+        {/* Stage 3: Connected Architecture System Line — OUTSIDE THE VIDEO FRAME */}
         <div className="relative pt-6 border-t border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
             <div className="space-y-3 p-2">

@@ -69,13 +69,10 @@ export default function AboutPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-[4/3]">
                 <LazyVideo
                   src="/videos/Enterprise_operating_model_visua._202608240106.mp4"
-                  overlayGradient={true}
-                  className="object-cover opacity-90"
+                  aspectRatio="aspect-[4/3]"
+                  objectFit="cover"
+                  className="w-full h-full"
                 />
-                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-200 flex items-center justify-between">
-                  <span className="font-bold text-[#38BDF8] uppercase tracking-wider text-[10px]">OPERATING MODEL RUNTIME</span>
-                  <span className="text-slate-400 text-[10px]">ENTERPRISE ARCHITECTURE</span>
-                </div>
               </div>
             </div>
           </div>
