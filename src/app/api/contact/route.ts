@@ -39,10 +39,16 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Parse Recipients
+    // 2. Parse Recipients & Verified Domain Sender
     const rawEmailTo = process.env.EMAIL_TO || "info@projectbuddy.co.in,projectbuddy.code@gmail.com";
     const recipients = rawEmailTo.split(",").map((e) => e.trim()).filter(Boolean);
-    const emailFrom = process.env.EMAIL_FROM || "Project Buddy <hello@projectbuddy.co.in>";
+    
+    let emailFrom = process.env.EMAIL_FROM || "Project Buddy <hello@projectbuddy.co.in>";
+    // Override any old onboarding@resend.dev environment variable to the verified production domain
+    if (!emailFrom || emailFrom.includes("onboarding@resend.dev")) {
+      emailFrom = "Project Buddy <hello@projectbuddy.co.in>";
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
 
     const timestamp = new Date().toLocaleString("en-US", {
