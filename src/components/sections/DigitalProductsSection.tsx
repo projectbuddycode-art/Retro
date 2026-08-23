@@ -21,14 +21,10 @@ export const DigitalProductsSection: React.FC = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-[16/10]">
               <LazyVideo
                 src="/videos/7.mp4"
-                overlayGradient={true}
-                className="object-cover opacity-90"
+                aspectRatio="aspect-[16/10]"
+                objectFit="cover"
+                className="w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#0A1128]/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-mono text-slate-800 shadow-pb-card flex items-center justify-between">
-                <span className="font-bold text-[#0052FF] uppercase tracking-wider text-[10px]">DIGITAL PLATFORMS & PORTALS</span>
-                <span className="text-slate-500 font-sans text-xs font-medium">Multi-Device Ecosystem</span>
-              </div>
             </div>
           </motion.div>
 
