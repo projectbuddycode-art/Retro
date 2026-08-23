@@ -3,6 +3,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
+export type VideoPriority = "critical" | "near" | "auto" | "lazy";
+
 interface LazyVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
   src: string;
   poster?: string;
@@ -10,26 +12,32 @@ interface LazyVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
   overlayGradient?: boolean;
   darkOverlay?: boolean;
   aspectRatio?: string;
-  priority?: boolean;
+  priority?: VideoPriority;
+  objectFit?: "cover" | "contain" | "fill";
+  desktopObjectPosition?: string;
+  mobileObjectPosition?: string;
 }
 
 export const LazyVideo: React.FC<LazyVideoProps> = ({
   src,
   poster,
   className,
-  overlayGradient = true,
+  overlayGradient = false,
   darkOverlay = false,
   aspectRatio = "aspect-video",
-  priority = false,
+  priority = "auto",
+  objectFit = "cover",
+  desktopObjectPosition = "center center",
+  mobileObjectPosition = "center center",
   ...props
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [shouldRender, setShouldRender] = useState(priority);
+  const [shouldRender, setShouldRender] = useState(priority === "critical");
 
   useEffect(() => {
-    if (priority) {
+    if (priority === "critical") {
       setShouldRender(true);
       return;
     }
@@ -37,7 +45,11 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
     const element = containerRef.current;
     if (!element) return;
 
-    // RootMargin: 700px before viewport ensures video starts preloading before user reaches section
+    // Configurable rootMargin based on explicit loading strategy
+    let rootMargin = "800px 0px 800px 0px";
+    if (priority === "near") rootMargin = "1300px 0px 1300px 0px";
+    if (priority === "lazy") rootMargin = "200px 0px 200px 0px";
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -53,22 +65,30 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           }
         });
       },
-      { rootMargin: "700px 0px 700px 0px", threshold: 0.05 }
+      { rootMargin, threshold: 0.02 }
     );
 
     observer.observe(element);
     return () => observer.disconnect();
   }, [priority]);
 
+  const fitClass =
+    objectFit === "contain"
+      ? "object-contain"
+      : objectFit === "fill"
+      ? "object-fill"
+      : "object-cover";
+
   return (
     <div
       ref={containerRef}
       className={cn(
-        "relative overflow-hidden bg-slate-950 w-full rounded-2xl border border-slate-800/80 shadow-2xl",
+        "relative overflow-hidden bg-slate-950 w-full rounded-2xl border border-slate-800/60 shadow-xl",
         aspectRatio,
         className
       )}
     >
+      {/* Seamless Video Render */}
       {shouldRender && (
         <video
           ref={videoRef}
@@ -78,32 +98,38 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           loop
           playsInline
           autoPlay
-          preload={priority ? "auto" : "metadata"}
+          preload={priority === "critical" ? "auto" : "metadata"}
           onLoadedData={() => setIsLoaded(true)}
           className={cn(
-            "w-full h-full object-cover transition-opacity duration-700 ease-out",
+            "w-full h-full transition-opacity duration-700 ease-out",
+            fitClass,
             isLoaded ? "opacity-100" : "opacity-0"
           )}
+          style={{
+            objectPosition: desktopObjectPosition,
+          }}
           {...props}
         />
       )}
 
-      {/* Skeleton / Fallback frame during load */}
+      {/* Clean Poster / Fallback Frame (Zero Spinners or Telemetry Text) */}
       {!isLoaded && (
-        <div className="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center space-y-3 p-4">
-          <div className="w-8 h-8 rounded-full border-2 border-[#0052FF]/30 border-t-[#0052FF] animate-spin" />
-          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-            SYSTEM TELEMETRY LOADING
-          </span>
+        <div
+          className="absolute inset-0 bg-slate-950 bg-cover bg-center transition-opacity duration-500"
+          style={{
+            backgroundImage: poster ? `url(${poster})` : undefined,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-950/40" />
         </div>
       )}
 
-      {/* Overlay Gradients */}
+      {/* Subtle Ambient Overlay Gradients */}
       {overlayGradient && (
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
       )}
       {darkOverlay && (
-        <div className="absolute inset-0 bg-slate-950/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-slate-950/30 pointer-events-none" />
       )}
     </div>
   );

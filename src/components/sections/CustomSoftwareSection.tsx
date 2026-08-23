@@ -3,20 +3,20 @@
 import React from "react";
 import { Container } from "../ui/Container";
 import { LazyVideo } from "../ui/LazyVideo";
-import { Code2, ArrowRight } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const CustomSoftwareSection: React.FC = () => {
   return (
     <section className="py-24 sm:py-32 bg-[#FAFAFC] border-b border-slate-200 relative overflow-hidden">
       <Container>
-        {/* Stage 1: Editorial Introduction */}
-        <div className="max-w-3xl space-y-4 mb-16">
+        {/* Stage 1: Clean Editorial Introduction */}
+        <div className="max-w-3xl space-y-4 mb-14">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono font-semibold tracking-widest text-[#0052FF] uppercase"
           >
             <Code2 className="w-3.5 h-3.5" />
@@ -24,10 +24,10 @@ export const CustomSoftwareSection: React.FC = () => {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
             className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.08]"
           >
             Engineered Around <br />
@@ -35,53 +35,40 @@ export const CustomSoftwareSection: React.FC = () => {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl font-sans"
           >
             Off-the-shelf software forces your business to change its processes to fit rigid SaaS paradigms. We build bespoke software systems engineered specifically around your established operational reality.
           </motion.p>
         </div>
 
-        {/* Stage 2 & Stage 3: Cinematic Video Reveal 8.mp4 with Technical Overlay */}
+        {/* Stage 2: Pure Cinematic Visual (8.mp4) without Heavy Telemetry Panels */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 w-full mb-16"
         >
           <LazyVideo
             src="/videos/8.mp4"
-            overlayGradient={true}
+            priority="near"
             aspectRatio="aspect-[16/9]"
-            className="object-cover opacity-90 max-h-[560px]"
+            className="object-cover opacity-95 max-h-[560px]"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/70 via-transparent to-transparent pointer-events-none" />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/90 via-transparent to-slate-950/20 pointer-events-none" />
-
-          {/* Technical Telemetry Overlay */}
-          <div className="absolute top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 p-4 rounded-2xl bg-slate-900/85 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-200 flex flex-wrap items-center justify-between gap-2 shadow-2xl">
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
-              <span className="font-bold text-[#38BDF8] uppercase tracking-wider text-[11px]">
-                SYSTEM ARCHITECTURE • CUSTOM SOFTWARE ENGINEERING
-              </span>
-            </div>
-            <span className="text-slate-400 text-[10px] uppercase tracking-widest hidden sm:inline">
-              SCALABLE DIGITAL INFRASTRUCTURE
-            </span>
-          </div>
-
-          <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
-            <span className="text-slate-400">STACK: NEXT.JS 14 • TYPESCRIPT • HIGH CONCURRENCY INGEST</span>
-            <span className="text-[#38BDF8] font-bold">100% OWNERSHIP</span>
+          {/* Minimal Subtle Label */}
+          <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-slate-900/80 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
+            <span className="text-slate-300 font-medium">CUSTOM SOFTWARE ARCHITECTURE</span>
+            <span className="text-[#38BDF8] font-bold text-[11px] uppercase tracking-wider">100% OWNERSHIP</span>
           </div>
         </motion.div>
 
-        {/* Stage 4: Connected Architecture System Line (Not Generic Cards) */}
+        {/* Stage 3: Connected Architecture System Line */}
         <div className="relative pt-6 border-t border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
             <div className="space-y-3 p-2">
