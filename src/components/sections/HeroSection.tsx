@@ -29,23 +29,36 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
     };
     window.addEventListener("resize", handleResize);
 
-    // Mobile node reduction for high CPU efficiency
+    // Mobile node reduction for high CPU efficiency, 2.5x density on desktop
     const isMobile = width < 640;
-    const nodeCount = isMobile ? 12 : Math.min(Math.floor(width / 50), 24);
-    const nodes: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
+    const nodeCount = isMobile ? 22 : Math.min(Math.floor(width / 32), 54);
+    const nodes: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      pulseOffset: number;
+      alpha: number;
+    }> = [];
 
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        radius: Math.random() * 1.2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.38, // 35% speed boost
+        vy: (Math.random() - 0.5) * 0.38,
+        radius: Math.random() * 1.4 + 0.8,
+        pulseOffset: Math.random() * Math.PI * 2,
+        alpha: Math.random() * 0.4 + 0.6,
       });
     }
 
+    let pulseTimer = 0;
+
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
+      pulseTimer += 0.04;
 
       // Subtle background blueprint grid
       ctx.strokeStyle = "rgba(15, 23, 42, 0.015)";
@@ -71,7 +84,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
         if (node.x < 0 || node.x > width) node.vx *= -1;
         if (node.y < 0 || node.y > height) node.vy *= -1;
 
-        ctx.fillStyle = "rgba(0, 82, 255, 0.22)";
+        // Dynamic breathing opacity per node
+        const currentAlpha = 0.2 + Math.sin(pulseTimer + node.pulseOffset) * 0.12;
+
+        ctx.fillStyle = `rgba(0, 82, 255, ${currentAlpha * node.alpha})`;
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -82,13 +98,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
           const dy = other.y - node.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 120) {
-            ctx.strokeStyle = `rgba(0, 82, 255, ${0.07 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.7;
+          if (dist < 135) {
+            const lineAlpha = (0.12 * (1 - dist / 135)) * currentAlpha * 3.5;
+            ctx.strokeStyle = `rgba(0, 82, 255, ${lineAlpha})`;
+            ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(other.x, other.y);
             ctx.stroke();
+
+            // Travelling pulse dot on active connections
+            if ((i + j) % 3 === 0) {
+              const progress = (Math.sin(pulseTimer * 1.5 + i) + 1) / 2;
+              const px = node.x + dx * progress;
+              const py = node.y + dy * progress;
+              ctx.fillStyle = `rgba(56, 189, 248, ${lineAlpha * 2})`;
+              ctx.beginPath();
+              ctx.arc(px, py, 1.2, 0, Math.PI * 2);
+              ctx.fill();
+            }
           }
         }
       });
@@ -105,7 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] flex flex-col justify-center items-center text-center bg-[#FAF9F6] text-slate-900 pt-28 pb-20 sm:pb-24 overflow-hidden border-b border-slate-200/80">
+    <section className="relative min-h-[100svh] flex flex-col justify-center items-center text-center bg-[#FAF9F6] text-slate-900 pt-24 pb-16 overflow-hidden border-b border-slate-200/80">
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-70" />
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[320px] bg-[#0052FF]/5 rounded-full blur-[120px] pointer-events-none" />
