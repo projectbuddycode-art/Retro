@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, ArrowRight, ArrowLeft, CheckCircle2, ShieldCheck } from "lucide-react";
+import { X, ArrowRight, ArrowLeft, CheckCircle2, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ContactModalProps {
@@ -11,7 +11,9 @@ interface ContactModalProps {
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,21 +43,57 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const budgetOptions = ["Under ₹5L", "₹5L - ₹10L", "₹10L - ₹20L", "₹20L+ Enterprise"];
 
   const handleNext = () => {
+    setErrorMessage(null);
+    if (step === 1) {
+      if (!formData.name.trim() || !formData.email.trim()) {
+        setErrorMessage("Please enter your name and work email.");
+        return;
+      }
+    }
     if (step < 4) setStep(step + 1);
   };
 
   const handlePrev = () => {
+    setErrorMessage(null);
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setErrorMessage(null);
+
+    if (!formData.name.trim() || !formData.email.trim()) {
+      setErrorMessage("Please fill in all required fields.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Submission failed. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setErrorMessage(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetModal = () => {
     setStep(1);
     setSubmitted(false);
+    setErrorMessage(null);
     onClose();
   };
 
@@ -100,15 +138,23 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             </button>
           </div>
 
+          {/* Validation Error Banner */}
+          {errorMessage && (
+            <div className="mt-4 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
           {/* Form Content */}
           {submitted ? (
             <div className="py-12 text-center space-y-4">
               <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-bold font-display text-slate-900">Brief Submitted Successfully</h3>
+              <h3 className="text-2xl font-bold font-display text-slate-900">Brief Delivered Successfully</h3>
               <p className="text-sm text-slate-600 max-w-md mx-auto">
-                Our senior software architect will review your technical specifications and contact you at <span className="font-semibold text-slate-900">{formData.email}</span> within 4 hours.
+                Your brief has been delivered to <span className="font-semibold text-slate-900">info@projectbuddy.co.in</span> and <span className="font-semibold text-slate-900">projectbuddy.code@gmail.com</span>. Our senior software architect will review and respond within 4 hours.
               </p>
               <button
                 onClick={resetModal}
@@ -243,13 +289,14 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </div>
               )}
 
-              {/* Navigation Controls */}
+              {/* Controls */}
               <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                 {step > 1 ? (
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="px-5 py-2.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold flex items-center gap-1.5"
+                    disabled={loading}
+                    className="px-5 py-2.5 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold flex items-center gap-1.5 disabled:opacity-50"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Previous</span>
@@ -273,10 +320,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 ) : (
                   <button
                     type="submit"
-                    className="px-7 py-3 rounded-full bg-[#0052FF] text-white text-xs font-semibold flex items-center gap-2 shadow-pb-glow"
+                    disabled={loading}
+                    className="px-7 py-3 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-xs font-semibold flex items-center gap-2 shadow-pb-glow disabled:opacity-50"
                   >
-                    <span>Submit Implementation Brief</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Transmitting Brief...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Implementation Brief</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 )}
               </div>
