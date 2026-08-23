@@ -12,7 +12,6 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Animated background constellation canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -30,25 +29,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
     };
     window.addEventListener("resize", handleResize);
 
-    const nodeCount = Math.min(Math.floor(width / 35), 40);
+    // Reduced visual noise by 35% per prompt directive
+    const nodeCount = Math.min(Math.floor(width / 50), 28);
     const nodes: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
 
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        radius: Math.random() * 1.5 + 1,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        radius: Math.random() * 1.2 + 0.8,
       });
     }
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      ctx.strokeStyle = "rgba(15, 23, 42, 0.02)";
+      // Subtle background blueprint grid
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.015)";
       ctx.lineWidth = 1;
-      const gridSize = 60;
+      const gridSize = 70;
       for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -69,7 +70,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
         if (node.x < 0 || node.x > width) node.vx *= -1;
         if (node.y < 0 || node.y > height) node.vy *= -1;
 
-        ctx.fillStyle = "rgba(0, 82, 255, 0.35)";
+        ctx.fillStyle = "rgba(0, 82, 255, 0.25)";
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -80,9 +81,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
           const dy = other.y - node.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 130) {
-            ctx.strokeStyle = `rgba(0, 82, 255, ${0.1 * (1 - dist / 130)})`;
-            ctx.lineWidth = 0.8;
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(0, 82, 255, ${0.08 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(other.x, other.y);
@@ -103,50 +104,59 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex flex-col justify-center items-center text-center bg-[#FAF9F6] text-slate-900 pt-32 pb-20 overflow-hidden">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-80" />
+    <section className="relative min-h-[82vh] flex flex-col justify-center items-center text-center bg-[#FAF9F6] text-slate-900 pt-28 pb-16 overflow-hidden">
+      <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none opacity-70" />
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#0052FF]/5 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#0052FF]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10 flex flex-col items-center">
-        <div className="max-w-4xl mx-auto space-y-7 flex flex-col items-center">
-          {/* Technical Eyebrow */}
+        <div className="max-w-3xl mx-auto space-y-6 flex flex-col items-center">
+          {/* Eyebrow Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm text-[11px] font-mono font-semibold tracking-widest text-slate-700 uppercase"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm text-[11px] font-mono font-semibold tracking-widest text-slate-700 uppercase"
           >
             <span className="w-2 h-2 rounded-full bg-[#0052FF] animate-pulse" />
             <span>ENGINEERED FOR REAL OPERATIONS</span>
           </motion.div>
 
-          {/* Fluid Headline: 36px mobile, 48px tablet, 64px desktop */}
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-extrabold text-[clamp(2.25rem,4.5vw,4.25rem)] text-[#0F172A] tracking-tight leading-[1.1] max-w-3xl"
-          >
-            We engineer the systems <br />
-            <span className="text-[#0052FF]">businesses run on.</span>
-          </motion.h1>
+          {/* Staggered Line Reveal Headline */}
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display font-extrabold text-[clamp(2.1rem,4.2vw,4rem)] text-[#0F172A] tracking-tight leading-[1.05] max-w-3xl"
+            >
+              We engineer the systems <br />
+              <motion.span
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[#0052FF] inline-block"
+              >
+                businesses run on.
+              </motion.span>
+            </motion.h1>
+          </div>
 
-          {/* Controlled Subhead */}
+          {/* Subhead */}
           <motion.p
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl font-sans"
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl font-sans"
           >
             Project Buddy designs and engineers custom software, enterprise applications and AI-enabled systems around real business operations.
           </motion.p>
 
           {/* Dual CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           >
             <a
@@ -170,7 +180,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="pt-6 border-t border-slate-200/60 w-full max-w-md text-xs font-mono text-slate-500 flex items-center justify-center gap-4 sm:gap-6"
           >
             <div className="flex items-center gap-1.5">
