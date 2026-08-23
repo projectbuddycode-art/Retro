@@ -95,15 +95,10 @@ export const AIAutomationSection: React.FC = () => {
           >
             <LazyVideo
               src="/videos/6.mp4"
-              overlayGradient={false}
-              darkOverlay={true}
-              className="opacity-90 object-cover"
+              aspectRatio="aspect-video"
+              objectFit="cover"
+              className="w-full h-full"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/90 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-800 text-xs font-mono text-slate-200 shadow-pb-card">
-              <span className="font-bold text-[#38BDF8] block uppercase tracking-wider text-[10px]">INTELLIGENT SYSTEM NODE</span>
-              Automated multi-channel integration runtime.
-            </div>
           </motion.div>
         </div>
 
