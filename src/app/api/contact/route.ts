@@ -1,124 +1,198 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, company, phone, projectType, challenge, timeline, budget } = body;
+    const {
+      name,
+      email,
+      company = "N/A",
+      phone = "N/A",
+      website = "N/A",
+      projectType = "Custom Software",
+      challenge = "",
+      timeline = "Not Specified",
+      budget = "Not Specified",
+      sourceUrl = "/",
+    } = body;
 
-    // Field Validation
-    if (!name || !email || !projectType) {
+    // 1. Strict Validation
+    if (!name || typeof name !== "string" || !name.trim()) {
       return NextResponse.json(
-        { error: "Validation Error: Name, email, and project type are required." },
+        { error: "Please enter your full name." },
         { status: 400 }
       );
     }
 
-    const recipients = [
-      "info@projectbuddy.co.in",
-      "projectbuddy.code@gmail.com",
-    ];
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return NextResponse.json(
+        { error: "Please enter a valid work email address." },
+        { status: 400 }
+      );
+    }
 
-    const subjectLine = `New Project Brief — ${projectType} — ${name}`;
+    if (!projectType) {
+      return NextResponse.json(
+        { error: "Please select a project type or service category." },
+        { status: 400 }
+      );
+    }
 
-    const htmlBody = `
-      <div style="font-family: Arial, sans-serif; color: #0F172A; max-width: 600px; margin: 0 auto; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-        <div style="background-color: #0A1128; color: #FFFFFF; padding: 24px; text-align: center;">
-          <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">PROJECT BUDDY</h2>
-          <p style="margin: 4px 0 0 0; font-size: 12px; color: #38BDF8; text-transform: uppercase; font-family: monospace;">NEW ENTERPRISE INQUIRY BRIEF</p>
+    // 2. Parse Recipients
+    const rawEmailTo = process.env.EMAIL_TO || "info@projectbuddy.co.in,projectbuddy.code@gmail.com";
+    const recipients = rawEmailTo.split(",").map((e) => e.trim()).filter(Boolean);
+    const emailFrom = process.env.EMAIL_FROM || "Project Buddy <onboarding@resend.dev>";
+    const apiKey = process.env.RESEND_API_KEY;
+
+    const timestamp = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+      dateStyle: "full",
+      timeStyle: "long",
+    });
+
+    // 3. HTML Email Body for Leadership / Internal Inbox
+    const internalHtmlBody = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0F172A; max-width: 620px; margin: 0 auto; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; background-color: #FFFFFF; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="background-color: #0A1128; color: #FFFFFF; padding: 28px; text-align: center;">
+          <h2 style="margin: 0; font-size: 22px; letter-spacing: 1px; font-weight: 800;">PROJECT BUDDY</h2>
+          <p style="margin: 6px 0 0 0; font-size: 11px; color: #38BDF8; text-transform: uppercase; font-family: monospace; letter-spacing: 2px;">NEW ENTERPRISE PROJECT REQUEST</p>
         </div>
 
-        <div style="padding: 24px; background-color: #FFFFFF;">
-          <h3 style="margin-top: 0; color: #0052FF;">Contact Information</h3>
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <div style="padding: 28px;">
+          <h3 style="margin-top: 0; color: #0052FF; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px;">Client Information</h3>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px;">
             <tr>
-              <td style="padding: 8px 0; font-weight: bold; width: 140px;">Full Name:</td>
-              <td style="padding: 8px 0;">${name}</td>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B; width: 150px;">Full Name:</td>
+              <td style="padding: 8px 0; font-weight: 700; color: #0F172A;">${name}</td>
             </tr>
             <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Work Email:</td>
-              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #0052FF;">${email}</a></td>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Work Email:</td>
+              <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #0052FF; font-weight: 600; text-decoration: none;">${email}</a></td>
             </tr>
             <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Company:</td>
-              <td style="padding: 8px 0;">${company || "N/A"}</td>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Company / Org:</td>
+              <td style="padding: 8px 0; color: #0F172A;">${company}</td>
             </tr>
             <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Phone / WhatsApp:</td>
-              <td style="padding: 8px 0;">${phone || "N/A"}</td>
-            </tr>
-          </table>
-
-          <h3 style="color: #0052FF; border-top: 1px solid #E2E8F0; padding-top: 16px;">Project Scope & Specifications</h3>
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold; width: 140px;">Project Type:</td>
-              <td style="padding: 8px 0; color: #0052FF; font-weight: bold;">${projectType}</td>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Phone / WhatsApp:</td>
+              <td style="padding: 8px 0; color: #0F172A;">${phone}</td>
             </tr>
             <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Estimated Budget:</td>
-              <td style="padding: 8px 0;">${budget || "Not Specified"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: bold;">Desired Timeline:</td>
-              <td style="padding: 8px 0;">${timeline || "Not Specified"}</td>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Website:</td>
+              <td style="padding: 8px 0; color: #0F172A;">${website}</td>
             </tr>
           </table>
 
-          <h3 style="color: #0052FF; border-top: 1px solid #E2E8F0; padding-top: 16px;">Operational Challenge & Context</h3>
-          <div style="background-color: #F8FAFC; padding: 16px; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 14px; leading: 1.6;">
-            ${challenge ? challenge.replace(/\n/g, "<br/>") : "No detailed description provided."}
+          <h3 style="color: #0052FF; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px;">Project Scope & Investment</h3>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px;">
+            <tr>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B; width: 150px;">Project Type:</td>
+              <td style="padding: 8px 0; color: #0052FF; font-weight: 700;">${projectType}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Estimated Budget:</td>
+              <td style="padding: 8px 0; font-weight: 700; color: #059669;">${budget}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: 600; color: #64748B;">Desired Timeline:</td>
+              <td style="padding: 8px 0; color: #0F172A;">${timeline}</td>
+            </tr>
+          </table>
+
+          <h3 style="color: #0052FF; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px;">Operational Challenge & Requirements</h3>
+          <div style="background-color: #F8FAFC; padding: 18px; border-radius: 12px; border: 1px solid #E2E8F0; font-size: 14px; line-height: 1.65; color: #334155;">
+            ${challenge ? challenge.replace(/\n/g, "<br/>") : "No detailed message provided."}
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #F1F5F9; font-size: 11px; color: #94A3B8; font-family: monospace;">
+            Submitted At: ${timestamp}<br/>
+            Source URL: ${sourceUrl}
           </div>
         </div>
 
         <div style="background-color: #F1F5F9; padding: 16px; text-align: center; font-size: 11px; color: #64748B;">
-          This email was delivered directly via the Project Buddy Web Platform API.
+          Delivered via Project Buddy Resend API Service
         </div>
       </div>
     `;
 
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 587;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
+    // 4. HTML Email Body for Client Confirmation
+    const clientConfirmationHtml = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0F172A; max-width: 600px; margin: 0 auto; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; background-color: #FFFFFF;">
+        <div style="background-color: #0A1128; color: #FFFFFF; padding: 24px; text-align: center;">
+          <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">PROJECT BUDDY</h2>
+          <p style="margin: 4px 0 0 0; font-size: 11px; color: #38BDF8; text-transform: uppercase; font-family: monospace;">REQUEST CONFIRMATION</p>
+        </div>
+        <div style="padding: 28px;">
+          <h3 style="margin-top: 0; color: #0F172A;">Thank you, ${name}.</h3>
+          <p style="font-size: 15px; line-height: 1.6; color: #334155;">
+            We have received your project request for <strong>${projectType}</strong>. Our senior engineering team is reviewing your requirements and will reach out shortly.
+          </p>
+          <div style="background-color: #F8FAFC; padding: 16px; border-radius: 12px; border: 1px solid #E2E8F0; margin: 20px 0;">
+            <p style="margin: 0; font-size: 13px; color: #64748B;"><strong>Summary:</strong> ${projectType} • Budget: ${budget} • Timeline: ${timeline}</p>
+          </div>
+          <p style="font-size: 14px; color: #475569;">
+            If you need to add further technical documentation or architectural details, reply directly to this email or reach us at <a href="mailto:info@projectbuddy.co.in" style="color: #0052FF;">info@projectbuddy.co.in</a>.
+          </p>
+          <br/>
+          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #0F172A;">Project Buddy Engineering Team</p>
+          <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;"><a href="https://www.projectbuddy.co.in" style="color: #0052FF; text-decoration: none;">www.projectbuddy.co.in</a></p>
+        </div>
+      </div>
+    `;
 
-    if (smtpHost && smtpUser && smtpPass) {
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+    // 5. Send via Resend API if API Key is configured
+    if (apiKey) {
+      const resend = new Resend(apiKey);
 
-      await transporter.sendMail({
-        from: `"Project Buddy Inquiries" <${smtpUser}>`,
-        to: recipients.join(", "),
+      // Send to internal team recipients
+      const internalRes = await resend.emails.send({
+        from: emailFrom,
+        to: recipients,
         replyTo: email,
-        subject: subjectLine,
-        html: htmlBody,
+        subject: `New Project Request — ${name}`,
+        html: internalHtmlBody,
       });
 
-      console.log(`[Contact API] Delivered project brief to: ${recipients.join(", ")}`);
+      if (internalRes.error) {
+        console.error("[Resend API Error]:", internalRes.error);
+        return NextResponse.json(
+          { error: internalRes.error.message || "Email delivery failed via Resend API." },
+          { status: 500 }
+        );
+      }
+
+      // Send confirmation to client
+      try {
+        await resend.emails.send({
+          from: emailFrom,
+          to: [email],
+          subject: "We received your project request — Project Buddy",
+          html: clientConfirmationHtml,
+        });
+      } catch (clientErr) {
+        console.warn("[Resend Client Confirmation Warning]:", clientErr);
+      }
+
+      console.log(`[Resend API Success] Email ID: ${internalRes.data?.id} delivered to: ${recipients.join(", ")}`);
     } else {
-      console.log(`[Contact API Dev Logger] SMTP Credentials missing. Logging brief payload to server:`);
-      console.log(`To: ${recipients.join(", ")}`);
-      console.log(`Subject: ${subjectLine}`);
+      // Dev mode logger when RESEND_API_KEY is pending Vercel configuration
+      console.log(`[Resend Dev Logger] RESEND_API_KEY missing. Structured payload logged:`);
+      console.log(`Recipients:`, recipients);
+      console.log(`Subject: New Project Request — ${name}`);
       console.log(`Payload:`, body);
     }
 
     return NextResponse.json({
       success: true,
-      delivered: true,
+      message: "Project request received successfully. We’ll be in touch soon.",
       recipients: recipients,
-      message: "Brief received and queued for leadership review.",
     });
   } catch (error: any) {
-    console.error("[Contact API Error]:", error);
+    console.error("[Contact Route Error]:", error);
     return NextResponse.json(
-      { error: "Server Error: Unable to process project brief submission." },
+      { error: "Server Error: Unable to process project request right now." },
       { status: 500 }
     );
   }
