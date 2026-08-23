@@ -3,14 +3,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-interface LazyVideoProps {
+interface LazyVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
   src: string;
   poster?: string;
   className?: string;
   overlayGradient?: boolean;
   darkOverlay?: boolean;
-  priority?: boolean;
-  scaleOnScroll?: boolean;
+  aspectRatio?: string;
 }
 
 export const LazyVideo: React.FC<LazyVideoProps> = ({
@@ -19,67 +18,81 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
   className,
   overlayGradient = true,
   darkOverlay = false,
-  priority = false,
-  scaleOnScroll = false,
+  aspectRatio = "aspect-video",
+  ...props
 }) => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(priority);
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
-    if (priority) return;
+    const element = containerRef.current;
+    if (!element) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            if (videoRef.current && videoRef.current.paused) {
+              videoRef.current.play().catch(() => {});
+            }
+          } else {
+            if (videoRef.current && !videoRef.current.paused) {
+              videoRef.current.pause();
+            }
+          }
+        });
       },
-      { threshold: 0.1, rootMargin: "250px" }
+      { threshold: 0.15 }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
+    observer.observe(element);
     return () => observer.disconnect();
-  }, [priority]);
-
-  useEffect(() => {
-    if (isInView && videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay policy silent fallback
-      });
-    }
-  }, [isInView]);
+  }, []);
 
   return (
-    <div ref={containerRef} className={cn("relative overflow-hidden w-full h-full group", className)}>
+    <div
+      ref={containerRef}
+      className={cn(
+        "relative overflow-hidden bg-slate-950 w-full rounded-2xl",
+        aspectRatio,
+        className
+      )}
+    >
       {isInView && (
         <video
           ref={videoRef}
           src={src}
           poster={poster}
-          autoPlay
-          loop
           muted
+          loop
           playsInline
+          autoPlay
+          preload="metadata"
           onLoadedData={() => setIsLoaded(true)}
           className={cn(
-            "w-full h-full object-cover transition-all duration-1000 transform scale-100 group-hover:scale-[1.02]",
+            "w-full h-full object-cover transition-opacity duration-700 ease-out",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
+          {...props}
         />
       )}
 
-      {/* Subtle Gradient & Vignette Overlays for Crisp Text Legibility */}
+      {/* Fallback loading frame */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-slate-950 animate-pulse flex items-center justify-center">
+          <span className="w-2 h-2 rounded-full bg-[#0052FF]" />
+        </div>
+      )}
+
+      {/* Optional Gradients */}
       {overlayGradient && (
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0A1128]/80 via-transparent to-[#0A1128]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
       )}
       {darkOverlay && (
-        <div className="absolute inset-0 pointer-events-none bg-[#0A1128]/50 backdrop-brightness-95" />
+        <div className="absolute inset-0 bg-slate-950/40 pointer-events-none" />
       )}
     </div>
   );
