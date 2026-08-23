@@ -194,13 +194,10 @@ export default function SolutionsPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-950 aspect-video w-full">
                 <LazyVideo
                   src={capabilities[activeTab].video}
-                  overlayGradient={true}
-                  className="object-cover opacity-90"
+                  aspectRatio="aspect-video"
+                  objectFit="cover"
+                  className="w-full h-full"
                 />
-                <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-mono text-slate-800 flex items-center justify-between">
-                  <span className="font-bold text-[#0052FF] uppercase tracking-wider text-[10px]">REAL-TIME RUNTIME VISUAL</span>
-                  <span className="text-slate-500 text-[10px]">ENTERPRISE ARCHITECTURE</span>
-                </div>
               </div>
 
               {/* Expected Outcomes */}
