@@ -45,8 +45,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 lg:px-8 py-4 sm:py-5",
-          scrolled ? "py-3" : "py-5"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-5 sm:px-8 lg:px-12 py-4 sm:py-5",
+          scrolled ? "py-3 bg-white/70 backdrop-blur-lg border-b border-slate-200/50 shadow-sm" : "py-5"
         )}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
