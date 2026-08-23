@@ -181,28 +181,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
             Project Buddy designs and engineers custom software, enterprise applications and AI-enabled systems around real business operations.
           </motion.p>
 
-          {/* Dual CTAs */}
+          {/* Dual CTAs - Clear Conversion Hierarchy */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+            className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto"
           >
-            <a
-              href="#solutions"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#0B132B] hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold tracking-tight flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all active:scale-95 group"
-            >
-              <span>Explore Services & Platforms</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-
+            {/* Primary Conversion CTA */}
             <button
               onClick={onOpenContactModal}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 border border-slate-200/90 text-xs sm:text-sm font-semibold tracking-tight flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95 group"
+              className="w-full sm:w-auto h-[52px] px-8 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-xs sm:text-sm font-semibold tracking-tight flex items-center justify-center gap-2.5 shadow-pb-glow hover:shadow-lg transition-all active:scale-95 btn-magnetic group"
             >
               <span>Start a Project</span>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
+
+            {/* Secondary Support CTA */}
+            <a
+              href="#solutions"
+              className="w-full sm:w-auto h-[52px] px-8 rounded-full bg-[#0B132B] hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold tracking-tight flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all active:scale-95 group"
+            >
+              <span>Explore Services & Platforms</span>
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+            </a>
           </motion.div>
 
           {/* Status Proof Line */}

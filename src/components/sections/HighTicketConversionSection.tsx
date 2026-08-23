@@ -44,7 +44,7 @@ export const HighTicketConversionSection: React.FC<HighTicketProps> = ({ onOpenC
       </section>
 
       {/* Final Conversion Section */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#050917] text-white relative overflow-hidden">
+      <section id="contact" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#050917] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-tech-grid-dark opacity-30 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0052FF]/20 rounded-full blur-[140px] pointer-events-none" />
 

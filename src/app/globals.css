@@ -11,12 +11,17 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+section {
+  scroll-margin-top: 100px;
 }
 
 /* Typography Base Resets */

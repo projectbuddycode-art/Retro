@@ -15,15 +15,37 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      if (pathname === "/") {
+        const sections = ["solutions", "ecosystem", "process", "contact"];
+        const scrollPosition = window.scrollY + 200;
+
+        for (const sectionId of sections) {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              setActiveSection(`#${sectionId}`);
+              return;
+            }
+          }
+        }
+        if (window.scrollY < 300) {
+          setActiveSection("");
+        }
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -35,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
 
   const navLinks = [
     { name: "Services", href: "#solutions" },
-    { name: "Systems", href: "#systems" },
+    { name: "Systems", href: "#ecosystem" },
     { name: "How It Works", href: "#process" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
@@ -46,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-5 sm:px-8 lg:px-12 py-4 sm:py-5",
-          scrolled ? "py-3 bg-white/70 backdrop-blur-lg border-b border-slate-200/50 shadow-sm" : "py-5"
+          scrolled ? "py-3 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm" : "py-5"
         )}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -55,22 +77,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
             <ProjectBuddyLogo variant="dark" size="md" showTagline={false} />
           </Link>
 
-          {/* Center: Floating Centered Navigation Pill */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/80 backdrop-blur-md px-6 py-2 rounded-full border border-slate-200/80 shadow-sm">
+          {/* Center: Floating Centered Navigation Pill with Active Indicator */}
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/90 backdrop-blur-md px-5 py-1.5 rounded-full border border-slate-200/80 shadow-sm">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isPageActive = pathname === link.href;
+              const isSectionActive = activeSection === link.href;
+              const isActive = isPageActive || isSectionActive;
+
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-sans font-medium transition-all duration-200 tracking-tight",
+                    "relative px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-sans font-medium transition-all duration-200 tracking-tight flex items-center gap-1.5",
                     isActive
-                      ? "text-[#0052FF] font-semibold"
+                      ? "text-[#0052FF] font-semibold bg-[#0052FF]/5"
                       : "text-slate-700 hover:text-[#0052FF]"
                   )}
                 >
-                  {link.name}
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0052FF]" />
+                  )}
+                  <span>{link.name}</span>
                 </Link>
               );
             })}
