@@ -3,216 +3,120 @@
 import React, { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Mail, MapPin, ShieldCheck, ArrowRight, Send, CheckCircle2 } from "lucide-react";
+import { ContactModal } from "@/components/ui/ContactModal";
+import { Mail, ShieldCheck, ArrowRight, Calendar, Sparkles, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    website: "",
-    projectType: "AI / Automation",
-    budget: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1000);
-  };
+  const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFC] text-slate-900">
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] text-slate-900 selection:bg-[#0052FF]/10 selection:text-[#0052FF]">
+      <Navbar onOpenContactModal={() => setContactModalOpen(true)} />
 
-      <main className="flex-grow pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Left: Direct Contact Information */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0052FF]/10 text-xs font-mono font-bold text-[#0052FF]">
-                  <span>DISCUSS YOUR PROJECT</span>
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                  Let's Architect What Comes Next.
-                </h1>
-                <p className="text-base text-slate-600 leading-relaxed">
-                  Have an ambitious custom software build, AI automation initiative, or enterprise system upgrade in mind? Submit your brief to connect directly with our tech leadership.
+      <main className="flex-grow pt-28 sm:pt-36 pb-24">
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl space-y-4 mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono font-semibold tracking-widest text-[#0052FF] uppercase">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>PROJECT DISCOVERY & INQUIRIES</span>
+            </div>
+
+            <h1 className="font-display font-bold text-hero-title text-slate-900">
+              Let's Discuss <br />
+              <span className="text-gradient-blue">What You're Building.</span>
+            </h1>
+
+            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
+              Direct access to our senior software architects. No sales pressure, no generic forms.
+            </p>
+          </motion.div>
+
+          {/* Contact Methods Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {/* Card 1: Guided Discovery Brief */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-2xl flex flex-col justify-between space-y-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#0052FF]/20 rounded-full blur-[100px] pointer-events-none" />
+
+              <div className="space-y-4 relative z-10">
+                <span className="text-xs font-mono font-bold text-[#38BDF8] uppercase tracking-wider block">
+                  RECOMMENDED DISCOVERY FLOW
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
+                  3-Step Implementation Brief Generator
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans font-normal">
+                  Generate a structured technical scope doc with estimated timeline and budget bounds in under 2 minutes.
                 </p>
               </div>
 
-              <div className="space-y-4 p-6 rounded-3xl bg-white border border-slate-200 shadow-pb-card">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-2xl bg-[#0052FF]/10 text-[#0052FF]">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-slate-400 font-mono block">Direct Project Inquiries</span>
-                    <a href="mailto:info@projectbuddy.co.in" className="text-sm sm:text-base font-mono font-bold text-slate-900 hover:text-[#0052FF]">
-                      info@projectbuddy.co.in
-                    </a>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-slate-100 flex items-center gap-4">
-                  <div className="p-3 rounded-2xl bg-slate-100 text-slate-700">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs text-slate-400 font-mono block">Global Delivery HQ</span>
-                    <span className="text-sm font-semibold text-slate-800">
-                      India • Global Enterprise Clients
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-900 text-white flex items-center gap-3 text-xs">
-                <ShieldCheck className="w-5 h-5 text-[#38BDF8] shrink-0" />
-                <span>NDA & Confidentiality Guaranteed on All Submissions.</span>
+              <div className="pt-4 relative z-10">
+                <button
+                  onClick={() => setContactModalOpen(true)}
+                  className="w-full py-4 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-sm font-semibold tracking-tight flex items-center justify-center gap-2 shadow-pb-glow transition-all"
+                >
+                  <span>Launch Brief Generator</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
-            {/* Right: Detailed Direct Brief Submission Form */}
-            <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-pb-card">
-              {submitted ? (
-                <div className="py-12 text-center space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
-                    <CheckCircle2 className="w-10 h-10" />
-                  </div>
-                  <div className="space-y-2 max-w-md mx-auto">
-                    <h3 className="text-2xl font-bold text-slate-900">Brief Successfully Sent</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      Thank you, <span className="font-semibold text-slate-900">{formData.name}</span>. Your brief has been sent to{" "}
-                      <span className="font-mono font-semibold text-[#0052FF]">info@projectbuddy.co.in</span>.
-                    </p>
-                  </div>
+            {/* Card 2: Direct Email & Leadership Connect */}
+            <div className="p-8 sm:p-10 rounded-3xl bg-white text-slate-900 border border-slate-200 shadow-pb-sm flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <span className="text-xs font-mono font-bold text-[#0052FF] uppercase tracking-wider block">
+                  DIRECT LEADERSHIP CONNECT
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">
+                  Email Engineering Office
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans font-normal">
+                  Send your technical requirements, RFP documents, or inquiry brief directly to our senior leadership team.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-[#0052FF] shrink-0" />
+                  <span className="text-sm font-mono font-bold text-slate-900">info@projectbuddy.co.in</span>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <h3 className="text-xl font-bold text-slate-900">Project Brief & Details</h3>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Full Name"
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Work Email *</label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="name@company.com"
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Company Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="Company"
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Website URL (Optional)</label>
-                      <input
-                        type="url"
-                        value={formData.website}
-                        onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                        placeholder="https://company.com"
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Primary Focus Area</label>
-                      <select
-                        value={formData.projectType}
-                        onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF] bg-white"
-                      >
-                        <option value="AI / Automation">AI & Automation Pipeline</option>
-                        <option value="Custom Software">Custom Software Platform</option>
-                        <option value="Digital Platform">Digital Client Portal / Marketplace</option>
-                        <option value="Digital Transformation">Digital Transformation</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Project Scope Budget</label>
-                      <select
-                        value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF] bg-white"
-                      >
-                        <option value="">Select scope...</option>
-                        <option value="₹2 - ₹5 Lakhs">₹2 - ₹5 Lakhs</option>
-                        <option value="₹5 - ₹15 Lakhs">₹5 - ₹15 Lakhs</option>
-                        <option value="₹15 Lakhs+">₹15 Lakhs+</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Project Summary / Technical Requirements *</label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Outline your project requirements, target timeline, and key operational goals..."
-                      className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-[#0052FF]"
-                    />
-                  </div>
-
-                  <div className="pt-2 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-400">
-                      Directly routed to <span className="font-mono text-slate-600">info@projectbuddy.co.in</span>
-                    </span>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="px-8 py-3 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-sm font-bold inline-flex items-center gap-2 shadow-pb-glow transition-all"
-                    >
-                      {isSubmitting ? "Dispatching..." : "Submit Project Brief"}
-                      <Send className="w-4 h-4" />
-                    </button>
-                  </div>
-                </form>
-              )}
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
+                <span>Response Time: &lt; 4 Hours</span>
+                <span>GLOBAL TELEMETRY ACTIVE</span>
+              </div>
             </div>
           </div>
-        </div>
+
+          {/* Confidentiality & Security Standards */}
+          <div className="p-8 rounded-3xl bg-slate-100 border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-2xl bg-white text-[#0052FF] shadow-sm shrink-0">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold font-display text-slate-900">Strict NDA & Confidentiality Guarantee</h4>
+                <p className="text-xs text-slate-600 font-sans mt-0.5">
+                  All technical specifications, codebase architecture, and operational workflows shared are governed by strict non-disclosure obligations.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#0052FF] shrink-0">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>100% IP Ownership Guarantee</span>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
+      <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </div>
   );
 }
