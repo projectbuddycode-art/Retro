@@ -103,11 +103,10 @@ telemetry.track('WORKFLOW_AUTOMATED', {
           <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 aspect-video lg:aspect-square">
             <LazyVideo
               src="/videos/engineering-infra.mp4"
-              overlayGradient={false}
-              darkOverlay={true}
-              className="opacity-80 object-cover"
+              aspectRatio="aspect-video"
+              objectFit="cover"
+              className="w-full h-full"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050917] via-transparent to-transparent" />
           </div>
         </div>
 

@@ -60,14 +60,10 @@ export const SecuritySection: React.FC = () => {
           <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-pb-card border border-slate-200 aspect-video lg:aspect-square">
             <LazyVideo
               src="/videos/security-tech.mp4"
-              overlayGradient={false}
-              className="opacity-90 object-cover"
+              aspectRatio="aspect-video"
+              objectFit="cover"
+              className="w-full h-full"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-mono text-slate-800">
-              <span className="font-bold text-[#0052FF] block">INFRASTRUCTURE SECURITY</span>
-              Encrypted endpoints, role-based access & automated audit logs.
-            </div>
           </div>
         </div>
 

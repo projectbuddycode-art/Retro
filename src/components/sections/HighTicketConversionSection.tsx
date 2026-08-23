@@ -25,9 +25,9 @@ export const HighTicketConversionSection: React.FC<HighTicketProps> = ({ onOpenC
           >
             <LazyVideo
               src="/videos/3.mp4"
-              overlayGradient={false}
-              darkOverlay={false}
-              className="object-cover opacity-95"
+              aspectRatio="aspect-[16/9]"
+              objectFit="contain"
+              className="w-full h-full"
             />
           </motion.div>
 
