@@ -34,30 +34,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Solutions", href: "/solutions" },
-    { name: "Industries", href: "/industries" },
-    { name: "Work", href: "/work" },
-    { name: "Insights", href: "/insights" },
+    { name: "Services", href: "#solutions" },
+    { name: "Systems", href: "#systems" },
+    { name: "How It Works", href: "#process" },
     { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4",
-          scrolled
-            ? "bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-pb-sm"
-            : "bg-transparent border-b border-transparent"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 lg:px-8 py-4 sm:py-5",
+          scrolled ? "py-3" : "py-5"
         )}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <ProjectBuddyLogo variant="dark" size="md" showTagline={false} />
+          {/* Left: Project Buddy Logo */}
+          <Link href="/" className="inline-flex items-center">
+            <ProjectBuddyLogo variant="dark" size="md" showTagline={false} />
+          </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-slate-100/60 p-1.5 rounded-full border border-slate-200/60 backdrop-blur-sm">
+          {/* Center: Floating Centered Navigation Pill */}
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/80 backdrop-blur-md px-6 py-2 rounded-full border border-slate-200/80 shadow-sm">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -65,10 +64,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "px-4 py-1.5 rounded-full text-xs lg:text-sm font-sans font-medium transition-all duration-200 tracking-tight relative",
+                    "px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-sans font-medium transition-all duration-200 tracking-tight",
                     isActive
-                      ? "bg-white text-[#0052FF] shadow-sm font-semibold"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/50"
+                      ? "text-[#0052FF] font-semibold"
+                      : "text-slate-700 hover:text-[#0052FF]"
                   )}
                 >
                   {link.name}
@@ -77,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
             })}
           </nav>
 
-          {/* Action CTAs */}
+          {/* Right: Electric Blue CTA Button */}
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={onOpenContactModal}
@@ -92,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="md:hidden p-2 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 transition-colors"
+            className="md:hidden p-2.5 rounded-2xl bg-white border border-slate-200 text-slate-800 shadow-sm hover:bg-slate-50 transition-colors"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -154,10 +153,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
                   setMobileMenuOpen(false);
                   if (onOpenContactModal) onOpenContactModal();
                 }}
-                className="w-full py-3.5 rounded-xl bg-[#0052FF] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-pb-glow tracking-tight"
+                className="w-full py-3.5 rounded-full bg-[#0052FF] text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-pb-glow tracking-tight"
               >
-                <span>Start a Project</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Start a Project →</span>
               </button>
 
               <div className="text-center">
