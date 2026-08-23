@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     // 2. Parse Recipients
     const rawEmailTo = process.env.EMAIL_TO || "info@projectbuddy.co.in,projectbuddy.code@gmail.com";
     const recipients = rawEmailTo.split(",").map((e) => e.trim()).filter(Boolean);
-    const emailFrom = process.env.EMAIL_FROM || "Project Buddy <onboarding@resend.dev>";
+    const emailFrom = process.env.EMAIL_FROM || "Project Buddy <hello@projectbuddy.co.in>";
     const apiKey = process.env.RESEND_API_KEY;
 
     const timestamp = new Date().toLocaleString("en-US", {
@@ -151,7 +151,7 @@ export async function POST(request: Request) {
         from: emailFrom,
         to: recipients,
         replyTo: email,
-        subject: `New Project Request — ${name}`,
+        subject: `New Project Inquiry — ${name}`,
         html: internalHtmlBody,
       });
 
