@@ -2,7 +2,7 @@
 
 import React from "react";
 import { LazyVideo } from "../ui/LazyVideo";
-import { Network, CheckCircle2, ArrowRight } from "lucide-react";
+import { Network } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const ConnectedSystemSection: React.FC = () => {

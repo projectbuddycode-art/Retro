@@ -109,7 +109,7 @@ export const AIAutomationSection: React.FC = () => {
               Live Pipeline Flow • Click Nodes to Inspect Data Handoff
             </span>
             <span className="text-[#38BDF8] font-semibold hidden sm:inline text-[11px]">
-              AUTOMATED RUNTIME: &lt; 3.2s END-TO-END
+              AUTOMATED RUNTIME: {"< 3.2s END-TO-END"}
             </span>
           </div>
 

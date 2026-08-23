@@ -181,13 +181,9 @@ export async function POST(request: Request) {
         console.warn("[Resend Client Confirmation Warning]:", clientErr);
       }
 
-      console.log(`[Resend API Success] Email ID: ${internalRes.data?.id} delivered to: ${recipients.join(", ")}`);
     } else {
-      // Dev mode logger when RESEND_API_KEY is pending Vercel configuration
-      console.log(`[Resend Dev Logger] RESEND_API_KEY missing. Structured payload logged:`);
-      console.log(`Recipients:`, recipients);
-      console.log(`Subject: New Project Request — ${name}`);
-      console.log(`Payload:`, body);
+      // Dev-only: no API key configured
+      console.warn("[Contact] RESEND_API_KEY not set — email not sent.");
     }
 
     return NextResponse.json({

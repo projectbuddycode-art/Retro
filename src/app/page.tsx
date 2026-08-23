@@ -1,20 +1,41 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactModal } from "@/components/ui/ContactModal";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { BrandTransitionSection } from "@/components/sections/BrandTransitionSection";
-import { ProblemSection } from "@/components/sections/ProblemSection";
-import { ConnectedSystemSection } from "@/components/sections/ConnectedSystemSection";
-import { ServicesSection } from "@/components/sections/ServicesSection";
-import { CustomSoftwareSection } from "@/components/sections/CustomSoftwareSection";
-import { AIAutomationSection } from "@/components/sections/AIAutomationSection";
-import { DigitalProductsSection } from "@/components/sections/DigitalProductsSection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { HighTicketConversionSection } from "@/components/sections/HighTicketConversionSection";
-import { FAQSection } from "@/components/sections/FAQSection";
+
+// Dynamic imports for all below-the-fold sections
+const ProblemSection = dynamic(() =>
+  import("@/components/sections/ProblemSection").then((m) => m.ProblemSection)
+);
+const ConnectedSystemSection = dynamic(() =>
+  import("@/components/sections/ConnectedSystemSection").then((m) => m.ConnectedSystemSection)
+);
+const ServicesSection = dynamic(() =>
+  import("@/components/sections/ServicesSection").then((m) => m.ServicesSection)
+);
+const CustomSoftwareSection = dynamic(() =>
+  import("@/components/sections/CustomSoftwareSection").then((m) => m.CustomSoftwareSection)
+);
+const AIAutomationSection = dynamic(() =>
+  import("@/components/sections/AIAutomationSection").then((m) => m.AIAutomationSection)
+);
+const DigitalProductsSection = dynamic(() =>
+  import("@/components/sections/DigitalProductsSection").then((m) => m.DigitalProductsSection)
+);
+const ProcessSection = dynamic(() =>
+  import("@/components/sections/ProcessSection").then((m) => m.ProcessSection)
+);
+const HighTicketConversionSection = dynamic(() =>
+  import("@/components/sections/HighTicketConversionSection").then((m) => m.HighTicketConversionSection)
+);
+const FAQSection = dynamic(() =>
+  import("@/components/sections/FAQSection").then((m) => m.FAQSection)
+);
 
 export default function HomePage() {
   const [contactModalOpen, setContactModalOpen] = useState(false);

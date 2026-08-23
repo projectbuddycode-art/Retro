@@ -2,7 +2,7 @@
 
 import React from "react";
 import { LazyVideo } from "../ui/LazyVideo";
-import { LayoutDashboard, Smartphone, Layers, CheckCircle2 } from "lucide-react";
+import { LayoutDashboard, Smartphone, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const DigitalProductsSection: React.FC = () => {

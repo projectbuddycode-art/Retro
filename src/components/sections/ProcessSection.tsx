@@ -39,7 +39,7 @@ export const ProcessSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FAFAFC] border-b border-slate-200">
+    <section id="process" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FAFAFC] border-b border-slate-200">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -19,7 +19,7 @@ export const BrandTransitionSection: React.FC = () => {
         >
           <LazyVideo
             src="/videos/2.mp4"
-            priority="critical"
+            priority="near"
             aspectRatio="aspect-[16/9]"
             objectFit="cover"
             className="w-full h-full"
