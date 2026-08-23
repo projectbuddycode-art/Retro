@@ -21,7 +21,7 @@ export const HighTicketConversionSection: React.FC<HighTicketProps> = ({ onOpenC
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-[16/9] max-h-[420px] mx-auto w-full"
+            className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-[16/10] sm:aspect-[16/9] max-w-[1000px] mx-auto w-full"
           >
             <LazyVideo
               src="/videos/3.mp4"

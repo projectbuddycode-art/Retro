@@ -100,7 +100,7 @@ telemetry.track('WORKFLOW_AUTOMATED', {
             </p>
           </div>
 
-          <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 aspect-video lg:aspect-square">
+          <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-[4/3] w-full">
             <LazyVideo
               src="/videos/engineering-infra.mp4"
               aspectRatio="aspect-video"

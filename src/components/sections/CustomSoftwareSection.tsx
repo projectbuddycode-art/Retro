@@ -45,20 +45,19 @@ export const CustomSoftwareSection: React.FC = () => {
           </motion.p>
         </div>
 
-        {/* Stage 2: Pure Cinematic Video Frame (8.mp4) — ZERO TEXT OR OVERLAYS INSIDE FRAME */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 w-full mb-16"
+          className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 w-full max-w-[1200px] mx-auto mb-16 aspect-[16/10] sm:aspect-[16/9]"
         >
           <LazyVideo
             src="/videos/8.mp4"
             priority="near"
             aspectRatio="aspect-[16/9]"
-            objectFit="cover"
-            className="w-full h-full max-h-[560px]"
+            objectFit="contain"
+            className="w-full h-full"
           />
         </motion.div>
 

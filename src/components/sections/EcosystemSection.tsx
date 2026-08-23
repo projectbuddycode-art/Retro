@@ -25,7 +25,7 @@ export const EcosystemSection: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-video lg:aspect-[4/3]">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-[4/3] w-full">
               <LazyVideo
                 src="/videos/Enterprise_software_system_anima._202608030154.mp4"
                 aspectRatio="aspect-video"

@@ -19,7 +19,7 @@ export const Container: React.FC<ContainerProps> = ({
     <div
       className={cn(
         "max-w-7xl mx-auto w-full",
-        cleanPadding ? "" : "px-4 sm:px-6 lg:px-8",
+        cleanPadding ? "" : "px-5 sm:px-8 lg:px-12",
         className
       )}
       {...props}

@@ -57,7 +57,7 @@ export const SecuritySection: React.FC = () => {
             </p>
           </div>
 
-          <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-pb-card border border-slate-200 aspect-video lg:aspect-square">
+          <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-pb-card border border-slate-200 bg-slate-950 aspect-[4/3] w-full">
             <LazyVideo
               src="/videos/security-tech.mp4"
               aspectRatio="aspect-video"

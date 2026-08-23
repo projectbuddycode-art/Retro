@@ -91,7 +91,7 @@ export const AIAutomationSection: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-video lg:aspect-square"
+            className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-[4/3] w-full"
           >
             <LazyVideo
               src="/videos/6.mp4"
