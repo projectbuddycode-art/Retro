@@ -28,13 +28,10 @@ export const EcosystemSection: React.FC = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-video lg:aspect-[4/3]">
               <LazyVideo
                 src="/videos/Enterprise_software_system_anima._202608030154.mp4"
-                overlayGradient={true}
-                className="object-cover opacity-90"
+                aspectRatio="aspect-video"
+                objectFit="cover"
+                className="w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#0A1128]/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute top-4 left-4 p-3 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-[11px] font-mono font-bold text-[#0052FF] uppercase tracking-wider">
-                UNIFIED ECOSYSTEM RUNTIME
-              </div>
             </div>
           </motion.div>
 
