@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialProjectType?: string;
 }
 
-export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
+export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, initialProjectType }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -25,6 +26,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     timeline: "1-2 Months",
     budget: "₹5L - ₹10L",
   });
+
+  React.useEffect(() => {
+    if (isOpen && initialProjectType) {
+      setFormData(prev => ({ ...prev, projectType: initialProjectType }));
+    }
+  }, [isOpen, initialProjectType]);
 
   const projectOptions = [
     "Custom Software",

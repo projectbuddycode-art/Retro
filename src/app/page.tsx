@@ -27,6 +27,9 @@ const AIAutomationSection = dynamic(() =>
 const DigitalProductsSection = dynamic(() =>
   import("@/components/sections/DigitalProductsSection").then((m) => m.DigitalProductsSection)
 );
+const ProductsSection = dynamic(() =>
+  import("@/components/sections/ProductsSection").then((m) => m.ProductsSection)
+);
 const ProcessSection = dynamic(() =>
   import("@/components/sections/ProcessSection").then((m) => m.ProcessSection)
 );
@@ -73,6 +76,9 @@ export default function HomePage() {
 
         {/* 08. VIDEO 7 (7.mp4) — DIGITAL PRODUCTS & PLATFORMS */}
         <DigitalProductsSection />
+
+        {/* 08b. OUR PRODUCTS — ATLAS & PRODUCT ECOSYSTEM */}
+        <ProductsSection />
 
         {/* 09. APPROACH / HOW WE WORK */}
         <ProcessSection />

@@ -32,7 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
             const top = el.offsetTop;
             const height = el.offsetHeight;
             if (scrollPosition >= top && scrollPosition < top + height) {
-              setActiveSection(`#${sectionId}`);
+              setActiveSection(`/#${sectionId}`);
               return;
             }
           }
@@ -56,9 +56,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "Services", href: "#solutions" },
-    { name: "Systems", href: "#ecosystem" },
-    { name: "How It Works", href: "#process" },
+    { name: "Services", href: "/#solutions" },
+    { name: "Systems", href: "/#ecosystem" },
+    { name: "Products", href: "/products" },
+    { name: "How It Works", href: "/#process" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -188,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
 
               <div className="text-center">
                 <span className="text-xs text-slate-500 font-mono">
-                  info@projectbuddy.co.in
+                  hello@projectbuddy.co.in
                 </span>
               </div>
             </div>

@@ -17,27 +17,33 @@ const sansFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Project Buddy — Enterprise Software, AI Automation & Digital Transformation",
+  title: "Project Buddy — Custom Software, AI Automation & Technology Partner",
   description:
-    "Project Buddy turns complex business ideas into high-scale software systems, custom AI automation pipelines, digital platforms, and enterprise growth infrastructure.",
+    "Project Buddy is a software and technology company specialising in custom software development, AI automation, business system integration, technology implementation and intelligent software products.",
   keywords: [
     "Project Buddy",
-    "Software Engineering",
+    "Custom Software Development",
     "AI Automation Company",
     "Digital Transformation",
     "Enterprise Custom Software",
     "Business Process Automation",
-    "Next.js Enterprise Apps",
-    "AI Workflow Pipeline",
+    "Software Implementation",
+    "System Integration",
+    "AI Workflow Automation",
+    "Technology Partner",
+    "Atlas Financial Software",
   ],
   authors: [{ name: "Project Buddy", url: "https://projectbuddy.co.in" }],
   creator: "Project Buddy",
   publisher: "Project Buddy Technology",
   metadataBase: new URL("https://projectbuddy.co.in"),
+  alternates: {
+    canonical: "https://projectbuddy.co.in",
+  },
   openGraph: {
-    title: "Project Buddy — Software Engineering & AI Automation Company",
+    title: "Project Buddy — Custom Software, AI Automation & Technology Partner",
     description:
-      "We turn complex ideas into systems that scale. Custom software, AI automation pipelines, and enterprise digital platforms.",
+      "Custom software development, AI automation, system integration, technology implementation and intelligent software products. Serving businesses globally.",
     url: "https://projectbuddy.co.in",
     siteName: "Project Buddy",
     locale: "en_US",
@@ -47,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Project Buddy — Software Engineering & AI Automation",
     description:
-      "From intelligent software and AI automation to digital platforms and growth systems. We design, build and scale what comes next.",
+      "Custom software, AI automation, system integration and intelligent products. Project Buddy is a software and technology company serving businesses globally.",
   },
   robots: {
     index: true,
@@ -72,22 +78,49 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Project Buddy",
     url: "https://projectbuddy.co.in",
-    logo: "https://projectbuddy.co.in/logo.png",
-    email: "info@projectbuddy.co.in",
-    description: "Enterprise Software Engineering, AI Automation & Digital Transformation Company",
+    logo: "https://projectbuddy.co.in/logo.jpg",
+    email: "hello@projectbuddy.co.in",
+    description:
+      "Project Buddy is a software and technology company focused on custom software development, business systems, AI-enabled automation, application development, system integration and technology implementation.",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "IN",
+    },
+    areaServed: "Worldwide",
+    sameAs: [],
+  };
+
+  const jsonLdWebSite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Project Buddy",
+    url: "https://projectbuddy.co.in",
+    description:
+      "Custom software development, AI automation, business system integration, technology implementation and software products.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://projectbuddy.co.in/search?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   const jsonLdService = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Project Buddy Technology",
-    email: "info@projectbuddy.co.in",
+    email: "hello@projectbuddy.co.in",
     url: "https://projectbuddy.co.in",
-    priceRange: "₹2,00,000 - ₹25,00,000",
+    areaServed: "Worldwide",
     serviceType: [
-      "Software Engineering",
+      "Custom Software Development",
       "AI Workflow Automation",
-      "Digital Platform Development",
+      "Business System Integration",
+      "Technology Implementation",
+      "Mobile App Development",
+      "Web Development",
       "Digital Transformation",
     ],
   };
@@ -98,6 +131,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
         />
         <script
           type="application/ld+json"
