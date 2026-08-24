@@ -96,9 +96,9 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           preload={priority === "critical" ? "auto" : "metadata"}
           onLoadedMetadata={() => setIsLoaded(true)}
           className={cn(
-            "w-full h-full transition-opacity duration-700 ease-out",
+            "w-full h-full transition-all duration-1000 ease-out",
             fitClass,
-            isLoaded ? "opacity-100" : "opacity-0"
+            isLoaded ? "opacity-100 scale-100 blur-none" : "opacity-0 scale-[1.02] blur-[4px]"
           )}
           style={{
             objectPosition: desktopObjectPosition,

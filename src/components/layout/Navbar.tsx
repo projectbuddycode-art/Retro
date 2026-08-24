@@ -109,10 +109,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={onOpenContactModal}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-xs lg:text-sm font-semibold tracking-tight shadow-pb-sm hover:shadow-pb-glow transition-all duration-200 active:scale-95 btn-magnetic"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0052FF] hover:bg-[#0043D6] text-white text-xs lg:text-sm font-semibold tracking-tight shadow-pb-sm hover:shadow-pb-glow transition-all duration-200 active:scale-95 btn-magnetic group"
             >
               <span>Start a Project</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 

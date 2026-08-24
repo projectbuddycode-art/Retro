@@ -138,7 +138,7 @@ export default function CustomSoftwarePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-15px" }}
                   transition={{ duration: 0.6, delay: idx * 0.07 }}
-                  className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card transition-all space-y-3"
+                  className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card hover:shadow-[#0052FF]/5 hover:-translate-y-1 transition-all duration-300 ease-out space-y-3"
                 >
                   <div className="w-9 h-9 rounded-xl bg-[#0052FF]/10 text-[#0052FF] flex items-center justify-center">
                     <Code2 className="w-4 h-4" />
