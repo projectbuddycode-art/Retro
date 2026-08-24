@@ -30,7 +30,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [shouldRender, setShouldRender] = useState(priority === "critical");
+  const [shouldRender, setShouldRender] = useState(priority === "critical" || priority === "near");
 
   useEffect(() => {
     if (priority === "critical") {
@@ -94,7 +94,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           playsInline
           autoPlay
           preload={priority === "critical" ? "auto" : "metadata"}
-          onLoadedData={() => setIsLoaded(true)}
+          onLoadedMetadata={() => setIsLoaded(true)}
           className={cn(
             "w-full h-full transition-opacity duration-700 ease-out",
             fitClass,

@@ -50,6 +50,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
     const handleVisibility = () => { isVisible = !document.hidden; };
     document.addEventListener("visibilitychange", handleVisibility);
 
+    let isIntersecting = true;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isIntersecting = entry.isIntersecting;
+      });
+    }, { threshold: 0 });
+    observer.observe(canvas);
+
     // ─── 4-LAYER NODE SYSTEM ───────────────────────────────────────────────────
 
     // Layer 1: Tiny distant background stars (very slow, very small)
@@ -110,7 +118,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
     let signalSpawnClock = 0;
 
     const draw = () => {
-      if (!isVisible) {
+      if (!isVisible || !isIntersecting) {
         animationFrameId = requestAnimationFrame(draw);
         return;
       }
@@ -261,6 +269,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("visibilitychange", handleVisibility);
+      observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

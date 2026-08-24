@@ -32,7 +32,7 @@ const fadeUp = {
 const fadeUpInView = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
+  viewport: { once: true, margin: "-15px" },
   transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
 };
 
@@ -210,7 +210,7 @@ export default function AtlasPage() {
                     key={feature.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    viewport={{ once: true, margin: "-15px" }}
                     transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                     className={`relative p-7 rounded-3xl border bg-slate-900/60 backdrop-blur-sm transition-all group hover:border-[#0052FF]/40 ${
                       idx === 0

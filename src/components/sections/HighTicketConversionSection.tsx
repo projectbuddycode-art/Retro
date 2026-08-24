@@ -19,7 +19,7 @@ export const HighTicketConversionSection: React.FC<HighTicketProps> = ({ onOpenC
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-15px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-950 aspect-[16/10] sm:aspect-[16/9] max-w-[1000px] mx-auto w-full"
           >

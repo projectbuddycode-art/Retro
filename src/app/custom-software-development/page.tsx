@@ -136,7 +136,7 @@ export default function CustomSoftwarePage() {
                   key={cap.title}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={{ once: true, margin: "-15px" }}
                   transition={{ duration: 0.6, delay: idx * 0.07 }}
                   className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card transition-all space-y-3"
                 >

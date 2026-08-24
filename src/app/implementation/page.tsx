@@ -102,7 +102,7 @@ const capabilities = [
 const fadeUpInView = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
+  viewport: { once: true, margin: "-15px" },
   transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
 };
 
@@ -229,7 +229,7 @@ export default function ImplementationPage() {
                     key={cap.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    viewport={{ once: true, margin: "-15px" }}
                     transition={{ duration: 0.6, delay: idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
                     className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card transition-all group space-y-4"
                   >
@@ -270,7 +270,7 @@ export default function ImplementationPage() {
                     key={step.num}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    viewport={{ once: true, margin: "-15px" }}
                     transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                     className="flex items-start gap-6 p-7 rounded-3xl bg-white border border-slate-200 hover:border-[#0052FF]/20 hover:shadow-pb-card transition-all group"
                   >

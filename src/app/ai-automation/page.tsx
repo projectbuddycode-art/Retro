@@ -93,7 +93,7 @@ export default function AIAutomationPage() {
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {capabilities.map((cap, idx) => (
-                <motion.div key={cap.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, delay: idx * 0.07 }} className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card transition-all space-y-3">
+                <motion.div key={cap.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-15px" }} transition={{ duration: 0.6, delay: idx * 0.07 }} className="p-7 rounded-3xl bg-[#FAFAFC] border border-slate-200 hover:border-[#0052FF]/30 hover:shadow-pb-card transition-all space-y-3">
                   <div className="w-9 h-9 rounded-xl bg-[#0052FF]/10 text-[#0052FF] flex items-center justify-center"><Bot className="w-4 h-4" /></div>
                   <h3 className="font-display font-bold text-lg text-slate-900 tracking-tight">{cap.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed">{cap.desc}</p>
