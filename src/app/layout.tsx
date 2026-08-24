@@ -79,7 +79,7 @@ export default function RootLayout({
     name: "Project Buddy",
     url: "https://projectbuddy.co.in",
     logo: "https://projectbuddy.co.in/logo.jpg",
-    email: "hello@projectbuddy.co.in",
+    email: "info@projectbuddy.co.in",
     description:
       "Project Buddy is a software and technology company focused on custom software development, business systems, AI-enabled automation, application development, system integration and technology implementation.",
     address: {
@@ -111,7 +111,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Project Buddy Technology",
-    email: "hello@projectbuddy.co.in",
+    email: "info@projectbuddy.co.in",
     url: "https://projectbuddy.co.in",
     areaServed: "Worldwide",
     serviceType: [

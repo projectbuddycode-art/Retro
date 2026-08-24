@@ -120,7 +120,7 @@ export async function POST(request: Request) {
             <p style="margin: 6px 0 0 0; font-size: 13px; color: #64748B;"><strong>Timeline:</strong> ${timeline}</p>
           </div>
           <p style="font-size: 14px; color: #475569;">
-            Questions? Reach us at <a href="mailto:hello@projectbuddy.co.in" style="color: #0052FF;">hello@projectbuddy.co.in</a>
+            Questions? Reach us at <a href="mailto:info@projectbuddy.co.in" style="color: #0052FF;">info@projectbuddy.co.in</a>
           </p>
           <br/>
           <p style="margin: 0; font-size: 14px; font-weight: 600; color: #0F172A;">Project Buddy</p>

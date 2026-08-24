@@ -189,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
 
               <div className="text-center">
                 <span className="text-xs text-slate-500 font-mono">
-                  hello@projectbuddy.co.in
+                  info@projectbuddy.co.in
                 </span>
               </div>
             </div>

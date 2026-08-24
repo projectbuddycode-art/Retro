@@ -95,7 +95,7 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-3 text-sm">
               <a
-                href="mailto:hello@projectbuddy.co.in"
+                href="mailto:info@projectbuddy.co.in"
                 className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-[#0052FF] text-slate-200 hover:text-white transition-all group"
               >
                 <div className="p-2 rounded-lg bg-[#0052FF]/20 text-[#38BDF8]">
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
                 <div className="flex flex-col">
                   <span className="text-xs text-slate-400">Enquiries & Proposals</span>
                   <span className="font-mono text-xs sm:text-sm font-semibold group-hover:text-[#38BDF8]">
-                    hello@projectbuddy.co.in
+                    info@projectbuddy.co.in
                   </span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 ml-auto text-slate-500 group-hover:text-white" />
