@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     const emailFrom =
       process.env.EMAIL_FROM && !process.env.EMAIL_FROM.includes("onboarding@resend.dev")
         ? process.env.EMAIL_FROM
-        : "Project Buddy <hello@projectbuddy.co.in>";
+        : "Project Buddy <info@projectbuddy.co.in>";
 
     const recipients = ["info@projectbuddy.co.in", "projectbuddy.code@gmail.com"];
 
