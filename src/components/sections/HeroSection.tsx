@@ -312,7 +312,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,3.6rem)] text-[#0F172A] tracking-tight leading-[1.08] max-w-3xl"
             >
-              <span className="block min-h-[1.08em]">
+              <span className="block text-[#0F172A]">We engineer the systems</span>
+              <span className="block min-h-[1.08em] text-[#0052FF]">
                 <TextType
                   text="businesses run on."
                   typingSpeed={42}
@@ -327,7 +328,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
                   cursorClassName="text-[#0052FF]"
                 />
               </span>
-              <span className="block text-[#0F172A]">We engineer the systems</span>
             </motion.h1>
           </div>
 
