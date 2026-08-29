@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { Container } from "../ui/Container";
 import { ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { TextType } from "../ui/TextType";
 
 interface HeroSectionProps {
   onOpenContactModal?: () => void;
@@ -311,15 +312,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,3.6rem)] text-[#0F172A] tracking-tight leading-[1.08] max-w-3xl"
             >
-              We engineer the systems <br />
-              <motion.span
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[#0052FF] inline-block"
-              >
-                businesses run on.
-              </motion.span>
+              <span className="block min-h-[1.08em]">
+                <TextType
+                  text="businesses run on."
+                  typingSpeed={42}
+                  variableSpeed={{ min: 28, max: 58 }}
+                  initialDelay={300}
+                  pauseDuration={2600}
+                  deletingSpeed={24}
+                  loop={false}
+                  showCursor={true}
+                  cursorCharacter="|"
+                  className="text-[#0052FF]"
+                  cursorClassName="text-[#0052FF]"
+                />
+              </span>
+              <span className="block text-[#0F172A]">We engineer the systems</span>
             </motion.h1>
           </div>
 
