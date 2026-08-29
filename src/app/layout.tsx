@@ -55,6 +55,11 @@ export const metadata: Metadata = {
     description:
       "Custom software, AI automation, system integration and intelligent products. Project Buddy is a software and technology company serving businesses globally.",
   },
+  icons: {
+    icon: "/logo.jpg",
+    shortcut: "/logo.jpg",
+    apple: "/logo.jpg",
+  },
   robots: {
     index: true,
     follow: true,

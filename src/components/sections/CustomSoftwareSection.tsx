@@ -10,7 +10,7 @@ export const CustomSoftwareSection: React.FC = () => {
   return (
     <section className="py-24 sm:py-32 bg-[#FAFAFC] border-b border-slate-200 relative overflow-hidden">
       <Container>
-        {/* Stage 1: Clean Editorial Introduction — ALL TEXT OUTSIDE THE VIDEO */}
+        {/* Stage 1: Clean Editorial Introduction */}
         <div className="max-w-3xl space-y-4 mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -45,6 +45,7 @@ export const CustomSoftwareSection: React.FC = () => {
           </motion.p>
         </div>
 
+        {/* Stage 2: Hero Video Frame — Chapter 06 Custom Software */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -53,15 +54,18 @@ export const CustomSoftwareSection: React.FC = () => {
           className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 w-full max-w-[1200px] mx-auto mb-16 aspect-[16/10] sm:aspect-[16/9]"
         >
           <LazyVideo
-            src="/videos/8.mp4"
+            src="/videos/Custom_software.mp4"
+            webmSrc="/videos/Custom_software.webm"
+            mp4Src="/videos/Custom_software.mp4"
+            poster="/videos/custom-software-poster.webp"
             priority="near"
             aspectRatio="aspect-[16/9]"
-            objectFit="contain"
+            objectFit="cover"
             className="w-full h-full"
           />
         </motion.div>
 
-        {/* Stage 3: Connected Architecture System Line — OUTSIDE THE VIDEO FRAME */}
+        {/* Stage 3: Connected Architecture System Line */}
         <div className="relative pt-6 border-t border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
             <div className="space-y-3 p-2">

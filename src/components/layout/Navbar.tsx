@@ -74,9 +74,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left: Project Buddy Logo */}
-          <Link href="/" className="inline-flex items-center">
+          <div className="inline-flex items-center">
             <ProjectBuddyLogo variant="dark" size="md" showTagline={false} />
-          </Link>
+          </div>
 
           {/* Center: Floating Centered Navigation Pill with Active Indicator */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-white/90 backdrop-blur-md px-5 py-1.5 rounded-full border border-slate-200/80 shadow-sm">
