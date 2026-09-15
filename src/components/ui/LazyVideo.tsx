@@ -172,7 +172,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
 
       <div
         aria-hidden="true"
-        className="lazy-video-watermark-mask absolute top-0 left-1/2 z-10 h-8 w-32 -translate-x-1/2 rounded-b-lg"
+        className="lazy-video-watermark-mask absolute left-1/2 top-1/2 z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full"
       />
     </div>
   );
