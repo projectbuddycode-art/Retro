@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContactModal }) => {
 
   const navLinks = [
     { name: "Services", href: "/services" },
-    { name: "Systems", href: "/#ecosystem" },
+    { name: "Systems", href: "/business-system-integration" },
     { name: "Products", href: "/products" },
     { name: "How It Works", href: "/#process" },
     { name: "About", href: "/about" },
