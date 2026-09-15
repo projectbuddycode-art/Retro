@@ -9,13 +9,6 @@ interface LogoProps {
   useImageOnly?: boolean;
 }
 
-/**
- * Project Buddy brand lockup.
- *
- * The wordmark intentionally follows the supplied brand reference:
- * PROJECT in the primary dark/navy tone + BUDDY in Project Buddy blue,
- * with a compact, heavy geometric wordmark and tight optical spacing.
- */
 export const ProjectBuddyLogo: React.FC<LogoProps> = ({
   variant = "dark",
   size = "md",
@@ -24,17 +17,8 @@ export const ProjectBuddyLogo: React.FC<LogoProps> = ({
 }) => {
   const isDarkBg = variant === "light";
 
-  const heightSizes = {
-    sm: "h-8",
-    md: "h-11",
-    lg: "h-12",
-  };
-
-  const textSizes = {
-    sm: "text-[17px]",
-    md: "text-[21px]",
-    lg: "text-[23px]",
-  };
+  const heightSizes = { sm: "h-8", md: "h-11", lg: "h-12" };
+  const textSizes = { sm: "text-[17px]", md: "text-[21px]", lg: "text-[23px]" };
 
   return (
     <Link
@@ -42,9 +26,7 @@ export const ProjectBuddyLogo: React.FC<LogoProps> = ({
       aria-label="Project Buddy"
       className="inline-flex items-center gap-4 group transition-transform duration-200 active:scale-[0.98]"
     >
-      <div
-        className={`relative ${heightSizes[size]} w-auto aspect-square flex items-center justify-center rounded-[14px] overflow-hidden shadow-sm border border-slate-200/80 bg-white p-0.5 shrink-0`}
-      >
+      <div className={`relative ${heightSizes[size]} w-auto aspect-square flex items-center justify-center rounded-[14px] overflow-hidden shadow-sm border border-slate-200/80 bg-white p-0.5 shrink-0`}>
         <Image
           src="/logo.jpg"
           alt="Project Buddy Logo"
@@ -59,21 +41,17 @@ export const ProjectBuddyLogo: React.FC<LogoProps> = ({
         <div className="flex flex-col min-w-0">
           <div className="flex items-center whitespace-nowrap leading-none">
             <span
-              className={`font-display font-extrabold ${textSizes[size]} tracking-[-0.045em] leading-none ${
-                isDarkBg ? "text-white" : "text-[#111827]"
-              }`}
+              className={`font-display font-extrabold ${textSizes[size]} tracking-[-0.045em] leading-none normal-case ${isDarkBg ? "text-white" : "text-[#111827]"}`}
             >
-              PROJECT <span className="text-[#0052FF]">BUDDY</span>
+              Project <span className="text-[#0052FF]">Buddy</span>
             </span>
           </div>
 
           {showTagline && (
             <span
-              className={`text-[10px] tracking-[0.16em] uppercase font-mono font-medium mt-1 ${
-                isDarkBg ? "text-slate-400" : "text-slate-500"
-              }`}
+              className={`text-[10px] tracking-[0.08em] font-sans font-medium mt-1 normal-case ${isDarkBg ? "text-slate-400" : "text-slate-500"}`}
             >
-              ENTERPRISE TECHNOLOGY
+              Turn Idea into Reality
             </span>
           )}
         </div>
