@@ -167,7 +167,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-[2%] right-[1.5%] h-[13%] w-[9%] rounded-full bg-slate-200/20 backdrop-blur-xl"
+        className="pointer-events-none absolute bottom-[9%] right-[5%] h-[14%] w-[10%] rounded-full bg-slate-200/20 backdrop-blur-xl"
       />
     </div>
   );
