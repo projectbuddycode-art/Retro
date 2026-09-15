@@ -9,6 +9,13 @@ interface LogoProps {
   useImageOnly?: boolean;
 }
 
+/**
+ * Project Buddy brand lockup.
+ *
+ * The wordmark intentionally follows the supplied brand reference:
+ * PROJECT in the primary dark/navy tone + BUDDY in Project Buddy blue,
+ * with a compact, heavy geometric wordmark and tight optical spacing.
+ */
 export const ProjectBuddyLogo: React.FC<LogoProps> = ({
   variant = "dark",
   size = "md",
@@ -18,47 +25,51 @@ export const ProjectBuddyLogo: React.FC<LogoProps> = ({
   const isDarkBg = variant === "light";
 
   const heightSizes = {
-    sm: "h-7",
-    md: "h-9",
-    lg: "h-11",
+    sm: "h-8",
+    md: "h-11",
+    lg: "h-12",
   };
 
   const textSizes = {
-    sm: "text-base",
-    md: "text-lg",
-    lg: "text-xl",
+    sm: "text-[17px]",
+    md: "text-[21px]",
+    lg: "text-[23px]",
   };
 
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-3 group transition-transform duration-200 active:scale-[0.98]"
+      aria-label="Project Buddy"
+      className="inline-flex items-center gap-4 group transition-transform duration-200 active:scale-[0.98]"
     >
-      <div className={`relative ${heightSizes[size]} w-auto aspect-square flex items-center justify-center rounded-xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-0.5`}>
+      <div
+        className={`relative ${heightSizes[size]} w-auto aspect-square flex items-center justify-center rounded-[14px] overflow-hidden shadow-sm border border-slate-200/80 bg-white p-0.5 shrink-0`}
+      >
         <Image
           src="/logo.jpg"
           alt="Project Buddy Logo"
-          width={40}
-          height={40}
-          className="object-contain w-full h-full rounded-lg transition-transform duration-300 group-hover:scale-105"
+          width={48}
+          height={48}
+          className="object-contain w-full h-full rounded-[11px] transition-transform duration-300 group-hover:scale-105"
           priority
         />
       </div>
 
       {!useImageOnly && (
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
+        <div className="flex flex-col min-w-0">
+          <div className="flex items-center whitespace-nowrap leading-none">
             <span
-              className={`font-bold tracking-tight font-sans ${textSizes[size]} ${
-                isDarkBg ? "text-white" : "text-slate-900"
+              className={`font-display font-extrabold ${textSizes[size]} tracking-[-0.045em] leading-none ${
+                isDarkBg ? "text-white" : "text-[#111827]"
               }`}
             >
               PROJECT <span className="text-[#0052FF]">BUDDY</span>
             </span>
           </div>
+
           {showTagline && (
             <span
-              className={`text-[10px] tracking-widest uppercase font-mono font-medium -mt-1 ${
+              className={`text-[10px] tracking-[0.16em] uppercase font-mono font-medium mt-1 ${
                 isDarkBg ? "text-slate-400" : "text-slate-500"
               }`}
             >
