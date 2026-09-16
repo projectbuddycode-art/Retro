@@ -106,7 +106,7 @@ export async function POST(request: Request) {
           </p>
           <br/>
           <p style="margin: 0; font-size: 14px; font-weight: 600; color: #0F172A;">Project Buddy</p>
-          <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;"><a href="https://www.projectbuddy.co.in" style="color: #0052FF; text-decoration: none;">www.projectbuddy.co.in</a></p>
+          <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;"><a href="https://projectbuddy.co.in" style="color: #0052FF; text-decoration: none;">projectbuddy.co.in</a></p>
         </div>
       </div>
     `;

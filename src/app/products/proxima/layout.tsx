@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     "Project Buddy Proxima",
   ],
   alternates: {
-    canonical: "https://projectbuddy.co.in/products/proxima",
+    canonical: "https://projectbuddy.co.in/products/proxima-ai",
   },
   openGraph: {
     title: "Proxima AI | Business Intelligence & Opportunity Research",
     description:
       "AI-powered business intelligence for smarter outreach and bigger wins. Find. Understand. Connect. Win.",
-    url: "https://projectbuddy.co.in/products/proxima",
+    url: "https://projectbuddy.co.in/products/proxima-ai",
     siteName: "Project Buddy",
     type: "website",
   },
