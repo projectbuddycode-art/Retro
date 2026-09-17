@@ -16,13 +16,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
 
-    // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
+    const connection =
+      typeof navigator !== "undefined" && "connection" in navigator
+        ? (navigator as Navigator & {
+            connection?: {
+              effectiveType?: string;
+              saveData?: boolean;
+            };
+          }).connection
+        : undefined;
+
+    const isSlowNetwork =
+      Boolean(connection?.saveData) ||
+      ["slow-2g", "2g", "3g"].includes(connection?.effectiveType || "");
+
+    const isMobile = window.innerWidth < 768;
+
+    if (prefersReducedMotion || isSlowNetwork || isMobile) {
+      return undefined;
+    }
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
     let animationFrameId: number;
     let width = 0;
@@ -43,8 +63,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
-
-    const isMobile = window.innerWidth < 768;
 
     // Cursor parallax state (smooth lerped)
     let targetMouseX = width / 2;

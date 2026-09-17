@@ -36,6 +36,24 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [shouldRender, setShouldRender] = useState(priority === "critical");
 
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const connection =
+    typeof navigator !== "undefined" && "connection" in navigator
+      ? (navigator as Navigator & {
+          connection?: {
+            effectiveType?: string;
+            saveData?: boolean;
+          };
+        }).connection
+      : undefined;
+
+  const isSlowNetwork =
+    Boolean(connection?.saveData) ||
+    ["slow-2g", "2g", "3g"].includes(connection?.effectiveType || "");
+
   // Determine source paths
   const resolvedMp4 = mp4Src || src;
   const resolvedWebm =
@@ -57,11 +75,16 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
       return;
     }
 
+    if (prefersReducedMotion || isSlowNetwork) {
+      setShouldRender(false);
+      return;
+    }
+
     const element = containerRef.current;
     if (!element) return;
 
-    let rootMargin = "600px 0px";
-    if (priority === "near") rootMargin = "1000px 0px";
+    let rootMargin = "800px 0px";
+    if (priority === "near") rootMargin = "1200px 0px";
     if (priority === "lazy") rootMargin = "250px 0px";
 
     const observer = new IntersectionObserver(
@@ -84,7 +107,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [priority]);
+  }, [priority, prefersReducedMotion, isSlowNetwork]);
 
   // Tab visibility management: pause video when tab is hidden to save GPU/battery
   useEffect(() => {
@@ -145,8 +168,8 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           muted
           loop
           playsInline
-          autoPlay
-          preload={priority === "critical" ? "auto" : "metadata"}
+          autoPlay={!prefersReducedMotion && !isSlowNetwork}
+          preload={priority === "critical" ? "auto" : "none"}
           onLoadedData={() => setIsLoaded(true)}
           onCanPlay={() => setIsLoaded(true)}
           onPlaying={() => setIsLoaded(true)}
