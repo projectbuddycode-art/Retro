@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 
 export const metadata: Metadata = {
   title: "Services — Custom Software, AI Automation & System Integration | Project Buddy",
@@ -32,5 +33,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <><ServiceJsonLd name="Project Buddy Technology Services" description={metadata.description as string} path="/services" serviceType={["Custom Software Development", "AI Automation", "Business System Integration", "Web Development", "App Development", "Technology Implementation"]} />{children}</>;
 }

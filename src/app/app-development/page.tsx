@@ -62,6 +62,19 @@ export default function AppDevelopmentPage() {
           </div>
         </section>
 
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAFAFC]">
+          <div className="max-w-4xl mx-auto space-y-5">
+            <span className="text-[11px] font-mono font-bold tracking-widest text-[#0052FF] uppercase block">MOBILE DELIVERY</span>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">Mobile Products Connected to the Business.</h2>
+            <p className="text-base text-slate-600 leading-relaxed">
+              Mobile applications often depend on more than the device interface. Project Buddy connects mobile experiences to the backend services, APIs, databases and authentication flows required by the product, including notifications and operational data where those capabilities are part of the scope.
+            </p>
+            <p className="text-base text-slate-600 leading-relaxed">
+              The team can support native iOS and Android work, React Native cross-platform applications, store deployment and ongoing platform maintenance. The delivery approach is shaped around the users, devices and business workflows the app must support.
+            </p>
+          </div>
+        </section>
+
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="mb-12">

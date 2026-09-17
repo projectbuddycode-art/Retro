@@ -48,12 +48,14 @@ export const metadata: Metadata = {
     siteName: "Project Buddy",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/logo.jpg", alt: "Project Buddy" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Project Buddy — Software Engineering & AI Automation",
     description:
       "Custom software, AI automation, system integration and intelligent products. Project Buddy is a software and technology company serving businesses globally.",
+    images: ["/logo.jpg"],
   },
   icons: {
     icon: "/logo.jpg",

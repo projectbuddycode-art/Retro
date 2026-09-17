@@ -62,6 +62,19 @@ export default function WebDevelopmentPage() {
           </div>
         </section>
 
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAFAFC]">
+          <div className="max-w-4xl mx-auto space-y-5">
+            <span className="text-[11px] font-mono font-bold tracking-widest text-[#0052FF] uppercase block">TECHNICAL SCOPE</span>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">Websites, Applications and Connected Platforms.</h2>
+            <p className="text-base text-slate-600 leading-relaxed">
+              The right web build depends on the job it needs to do. Project Buddy develops business websites and content-led experiences, as well as web applications and digital platforms with authentication, business logic, databases, APIs and role-based access where the product requires them.
+            </p>
+            <p className="text-base text-slate-600 leading-relaxed">
+              Projects can include e-commerce workflows, customer or partner portals, internal tools, third-party integrations and production deployment. The engagement starts by clarifying the users, workflows and operational requirements before the technical scope is defined.
+            </p>
+          </div>
+        </section>
+
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="mb-12">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 export const metadata: Metadata = {
   title: "Custom Software Development Company | Project Buddy",
   description: "Project Buddy builds custom software engineered around how your business actually operates. Enterprise applications, dashboards, workflow tools and cloud systems — 100% bespoke, zero vendor lock-in.",
@@ -7,4 +8,6 @@ export const metadata: Metadata = {
   openGraph: { title: "Custom Software Development | Project Buddy", description: "Software built around your business workflows. Enterprise applications, dashboards, automation tools and cloud systems.", url: "https://projectbuddy.co.in/custom-software-development", siteName: "Project Buddy", type: "website" },
   twitter: { card: "summary_large_image", title: "Custom Software Development | Project Buddy", description: "Bespoke software engineered around your operational reality." },
 };
-export default function Layout({ children }: { children: React.ReactNode }) { return <>{children}</>; }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <><ServiceJsonLd name="Custom Software Development" description={metadata.description as string} path="/custom-software-development" serviceType={["Custom Software Development", "Enterprise Application Development", "Business Software Development"]} />{children}</>;
+}

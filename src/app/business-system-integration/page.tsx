@@ -64,6 +64,19 @@ export default function BusinessSystemIntegrationPage() {
           </div>
         </section>
 
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAFAFC]">
+          <div className="max-w-4xl mx-auto space-y-5">
+            <span className="text-[11px] font-mono font-bold tracking-widest text-[#0052FF] uppercase block">HOW INTEGRATION WORKS</span>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">What Is Business System Integration?</h2>
+            <p className="text-base text-slate-600 leading-relaxed">
+              Business system integration connects the applications, databases and APIs that teams rely on so information can move between them reliably. Instead of re-entering data across disconnected tools, workflows can share the right information with clear ownership and traceability.
+            </p>
+            <p className="text-base text-slate-600 leading-relaxed">
+              Project Buddy can assess the current system landscape, map the required data flows, implement the integration and support the transition into day-to-day operations. Security, access control, validation and monitoring are considered as part of the integration design.
+            </p>
+          </div>
+        </section>
+
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
           <div className="max-w-7xl mx-auto">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="mb-12">

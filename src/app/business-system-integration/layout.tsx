@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 export const metadata: Metadata = {
   title: "Business System Integration Services | Project Buddy",
   description: "Connect your software, databases, APIs and operational tools into a unified system. Project Buddy eliminates data silos and builds integrated business environments for growing companies.",
@@ -7,4 +8,6 @@ export const metadata: Metadata = {
   openGraph: { title: "Business System Integration | Project Buddy", description: "Connect your systems, eliminate silos, build a unified operational environment.", url: "https://projectbuddy.co.in/business-system-integration", siteName: "Project Buddy", type: "website" },
   twitter: { card: "summary_large_image", title: "Business System Integration | Project Buddy", description: "Connect your software systems and eliminate operational silos." },
 };
-export default function Layout({ children }: { children: React.ReactNode }) { return <>{children}</>; }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <><ServiceJsonLd name="Business System Integration" description={metadata.description as string} path="/business-system-integration" serviceType={["Business System Integration", "API Integration", "CRM Integration", "ERP Integration", "Data Integration"]} />{children}</>;
+}

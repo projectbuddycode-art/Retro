@@ -138,7 +138,7 @@ export default function ServicesPage() {
                       </div>
 
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-[#0052FF] group-hover:gap-2.5 transition-all">
-                        <span>Learn More</span>
+                        <span>Explore {service.title}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </Link>
