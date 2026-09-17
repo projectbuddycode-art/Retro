@@ -75,7 +75,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
       return;
     }
 
-    if (prefersReducedMotion || isSlowNetwork) {
+    if (prefersReducedMotion) {
       setShouldRender(false);
       return;
     }
@@ -83,16 +83,16 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
     const element = containerRef.current;
     if (!element) return;
 
-    let rootMargin = "800px 0px";
-    if (priority === "near") rootMargin = "1200px 0px";
-    if (priority === "lazy") rootMargin = "250px 0px";
+    let rootMargin = isSlowNetwork ? "300px 0px" : "800px 0px";
+    if (priority === "near") rootMargin = isSlowNetwork ? "450px 0px" : "1200px 0px";
+    if (priority === "lazy") rootMargin = isSlowNetwork ? "150px 0px" : "250px 0px";
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setShouldRender(true);
-            if (videoRef.current && videoRef.current.paused) {
+            if (!isSlowNetwork && videoRef.current && videoRef.current.paused) {
               videoRef.current.play().catch(() => {});
             }
           } else {
@@ -118,7 +118,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           videoRef.current.pause();
         }
       } else {
-        if (shouldRender && videoRef.current.paused) {
+        if (shouldRender && !isSlowNetwork && videoRef.current.paused) {
           videoRef.current.play().catch(() => {});
         }
       }
@@ -126,7 +126,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [shouldRender]);
+  }, [shouldRender, isSlowNetwork]);
 
   const fitClass =
     objectFit === "cover"
@@ -144,19 +144,20 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
         className
       )}
     >
-      {/* Poster Background layer — Prevents any empty or black flash */}
+      {/* Native lazy loading keeps below-fold posters out of the initial request queue. */}
       {resolvedPoster && (
-        <div
+        <img
+          src={resolvedPoster}
+          alt=""
+          aria-hidden="true"
+          loading={priority === "critical" ? "eager" : "lazy"}
+          decoding="async"
           className={cn(
-            "absolute inset-0 bg-slate-950 bg-cover bg-center transition-opacity duration-700 pointer-events-none",
+            "absolute inset-0 w-full h-full transition-opacity duration-700 pointer-events-none",
+            objectFit === "cover" ? "object-cover" : "object-contain",
             isLoaded ? "opacity-0" : "opacity-100"
           )}
-          style={{
-            backgroundImage: `url(${resolvedPoster})`,
-            backgroundSize: objectFit === "contain" ? "contain" : "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: desktopObjectPosition,
-          }}
+          style={{ objectPosition: desktopObjectPosition }}
         />
       )}
 
@@ -169,7 +170,7 @@ export const LazyVideo: React.FC<LazyVideoProps> = ({
           loop
           playsInline
           autoPlay={!prefersReducedMotion && !isSlowNetwork}
-          preload={priority === "critical" ? "auto" : "none"}
+          preload={priority === "critical" ? "auto" : isSlowNetwork ? "metadata" : "none"}
           onLoadedData={() => setIsLoaded(true)}
           onCanPlay={() => setIsLoaded(true)}
           onPlaying={() => setIsLoaded(true)}

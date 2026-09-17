@@ -55,12 +55,12 @@ export const TextType: React.FC<TextTypeProps> = ({
 
   const shouldLoop = loop !== undefined ? loop : phrases.length > 1;
 
-  const [displayedText, setDisplayedText] = useState("");
+  const [displayedText, setDisplayedText] = useState(phrases[0] || "");
   const [isTyping, setIsTyping] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const phraseIndexRef = useRef(0);
-  const charIndexRef = useRef(0);
+  const charIndexRef = useRef(phrases[0]?.length || 0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
   const isUnmountedRef = useRef(false);

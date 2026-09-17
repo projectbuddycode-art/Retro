@@ -381,7 +381,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
         <div className="max-w-3xl mx-auto space-y-6 flex flex-col items-center">
           {/* Eyebrow Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm text-[11px] font-mono font-semibold tracking-widest text-slate-700 uppercase"
@@ -393,7 +393,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
           {/* Headline with React Bits TextType Typing Animation */}
           <div className="overflow-visible">
             <motion.h1
-              initial={{ opacity: 0, y: 22 }}
+              initial={{ opacity: 1, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-display font-extrabold text-[clamp(1.9rem,3.8vw,3.6rem)] text-[#0F172A] tracking-tight leading-[1.08] max-w-3xl"
@@ -424,7 +424,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
 
           {/* Subhead */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl font-sans"
@@ -434,7 +434,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
 
           {/* Dual CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto"
@@ -460,7 +460,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenContactModal }) 
 
           {/* Status Proof Line */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.75 }}
             className="pt-6 border-t border-slate-200/60 w-full max-w-md text-xs font-mono text-slate-500 flex items-center justify-center gap-4 sm:gap-6"
