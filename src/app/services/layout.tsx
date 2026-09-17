@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     url: "https://projectbuddy.co.in/services",
     siteName: "Project Buddy",
     type: "website",
+    images: [{ url: "/logo.jpg", alt: "Project Buddy" }],
   },
   twitter: {
     card: "summary_large_image",
